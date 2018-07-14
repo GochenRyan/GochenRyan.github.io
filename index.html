@@ -156,6 +156,129 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-大数据学习概要-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/14/大数据学习概要-2/">大数据学习概要(2)</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/14/大数据学习概要-2/" class="archive-article-date">
+  	<time datetime="2018-07-14T03:24:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="hadoop的几种安装模式："><a href="#hadoop的几种安装模式：" class="headerlink" title="hadoop的几种安装模式："></a>hadoop的几种安装模式：</h2><ol>
+<li>单机模式</li>
+<li>伪分布模式</li>
+<li>集群模式</li>
+</ol>
+<h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>HDFS是Hadoop项目的核心子项目，被设计在商品硬件上运行<br>设计的前提和目标：  </p>
+<ol>
+<li>硬件容错：故障检测和自动恢复</li>
+<li>流式数据访问</li>
+<li>超大规模数据集</li>
+<li>简单一致性模型</li>
+<li>移动计算比移动数据便宜</li>
+<li>跨异构硬件和软件平台的可移植性  </li>
+</ol>
+<p>HDFS特性和优点</p>
+<ol>
+<li>横向线性扩展</li>
+<li>自动冗余</li>
+<li>高容错性</li>
+<li>运行在廉价的机器上</li>
+<li>适合批处理</li>
+</ol>
+<p>HDFS缺点</p>
+<ol>
+<li>不适合低延迟数据访问</li>
+<li>无法存储大量小文件</li>
+<li>不支持用户写入及任意修改文件</li>
+</ol>
+<p>NameNode:<br>Hadoop V2：一个NameNode<br>Hadoop V2：两个NameNode<br>Hadoop V3：多个NameNode  </p>
+<ul>
+<li>存储元数据（Metadata）：镜像文件（FsImage）及修改日志（EditLog）</li>
+<li>元数据保存在内存中</li>
+<li>保存文件，block，DataNode之间的映射关系</li>
+</ul>
+<p>DataNode</p>
+<ul>
+<li>存储文件内容</li>
+<li>文件内容保存在磁盘</li>
+<li>维护了block id到DataNode本地文件的映射关系</li>
+</ul>
+<p>DataNode启动后向NameNode注册，通过周期性(1小时)的向NameNode上报所有的块信息，每3秒发送心跳信息；超过10min没有收到心跳信息，宕机.  </p>
+<p>Secondary NameNode作用<br><img src="../img/SecondaryNameNode1.png" alt="SecondaryNameNode"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">大数据</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/14/大数据学习概要-2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-大数据学习概要-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -592,15 +715,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">游戏制作</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -613,6 +736,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
             
             <div class="clearfix"></div>
