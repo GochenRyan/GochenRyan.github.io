@@ -190,35 +190,9 @@
 <li>移动计算比移动数据便宜</li>
 <li>跨异构硬件和软件平台的可移植性  </li>
 </ol>
-<p>HDFS特性和优点</p>
-<ol>
-<li>横向线性扩展</li>
-<li>自动冗余</li>
-<li>高容错性</li>
-<li>运行在廉价的机器上</li>
-<li>适合批处理</li>
-</ol>
-<p>HDFS缺点</p>
-<ol>
-<li>不适合低延迟数据访问</li>
-<li>无法存储大量小文件</li>
-<li>不支持用户写入及任意修改文件</li>
-</ol>
-<p>NameNode:<br>Hadoop V2：一个NameNode<br>Hadoop V2：两个NameNode<br>Hadoop V3：多个NameNode  </p>
-<ul>
-<li>存储元数据（Metadata）：镜像文件（FsImage）及修改日志（EditLog）</li>
-<li>元数据保存在内存中</li>
-<li>保存文件，block，DataNode之间的映射关系</li>
-</ul>
-<p>DataNode</p>
-<ul>
-<li>存储文件内容</li>
-<li>文件内容保存在磁盘</li>
-<li>维护了block id到DataNode本地文件的映射关系</li>
-</ul>
-<p>DataNode启动后向NameNode注册，通过周期性(1小时)的向NameNode上报所有的块信息，每3秒发送心跳信息；超过10min没有收到心跳信息，宕机.  </p>
-<p>Secondary NameNode作用<br><img src="../img/SecondaryNameNode1.png" alt="SecondaryNameNode"></p>
-
+        
+          <a class="article-more-a" href="/2018/07/14/大数据学习概要-2/#more">more >></a>
+        
       
 
       
@@ -306,23 +280,9 @@
 <li>产生的数据，已经远远超过了人力所能处理的范畴；</li>
 <li>方向：<strong>大数据的安全</strong>。</li>
 </ol>
-<h2 id="大数据的4“V”"><a href="#大数据的4“V”" class="headerlink" title="大数据的4“V”"></a>大数据的4“V”</h2><ul>
-<li>volume：体量大；</li>
-<li>Variety：多样化；</li>
-<li>velocity：快速化；</li>
-<li>Value：价值密度低。</li>
-</ul>
-<p>需要解决的问题：大数据的<strong>存储</strong>与<strong>处理</strong>。</p>
-<h2 id="大数据技术"><a href="#大数据技术" class="headerlink" title="大数据技术"></a>大数据技术</h2><p>数据量比较小时，由标准的数据库服务器处理，但是当处理海量的数据时，传统数据库有困难。</p>
-<ol>
-<li>批处理：针对大数据的批量处理、延迟高；  </li>
-<li>流计算：针对流数据的实时计算、延迟低；  </li>
-<li>图计算：针对图数据；  </li>
-<li>查询分析计算：存储管理和查询分析。</li>
-</ol>
-<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>Hadoop提供了一个可靠的、可伸缩的存储和分析平台，基于Google的两个学术论文：<strong>Google File System(GFS)</strong> 和 <strong>Mapreduce</strong>（程序员的分享精神: )），实现了MapReduce和GFS技术。<br>Hadoop 2.0：希望不只是应用Mapreduce计算模型,于是进行了解耦，增加了YARN层；JDK1.7 </p>
-<p><img src="../img/hadoop1.png" alt="Hadoop V1"><br><img src="../img/hadoop2.png" alt="Hadoop V2"><br>Hadoop 3.0：内存+io+磁盘</p>
-
+        
+          <a class="article-more-a" href="/2018/07/13/大数据学习概要-1/#more">more >></a>
+        
       
 
       
@@ -481,10 +441,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>网上教程若干，不适用于最新的Android Studio版本。<br>故根据官网教程配置。<br><a href="https://github.com/androidannotations/androidannotations/wiki/Building-Project-Gradle" target="_blank" rel="noopener">官网教程</a></p>
-<h2 id="对project的build-gradle进行配置"><a href="#对project的build-gradle进行配置" class="headerlink" title="对project的build.gradle进行配置"></a>对project的build.gradle进行配置</h2><p>在<strong>repositories</strong>下添加 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line">        ...</span><br><span class="line">        mavenCentral() </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>在<strong>allprojects</strong>添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        ...</span><br><span class="line">        maven &#123;</span><br><span class="line">            url = &apos;https://oss.sonatype.org/content/repositories/snapshots&apos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="对moduler的build-gradle进行配置"><a href="#对moduler的build-gradle进行配置" class="headerlink" title="对moduler的build.gradle进行配置"></a>对moduler的build.gradle进行配置</h2><p>需要注意的一点是：官网配置采用的是compile。<br>但是，<strong>compile方法过时了，所以采用api替代compile</strong>。<br>在<strong>dependencies</strong>下添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def AAVersion = &apos;4.4.0&apos;    //由于项目采用之前的版本有问题，故采用最新版本4.4.0</span><br><span class="line">def AASnapshotVersion = &apos;4.4.0-SNAPSHOT&apos;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation fileTree(dir: &apos;libs&apos;, include: [&apos;*.jar&apos;])</span><br><span class="line">    implementation &apos;com.android.support:appcompat-v7:26.1.0&apos;</span><br><span class="line">    implementation &apos;com.android.support.constraint:constraint-layout:1.1.0&apos;</span><br><span class="line">    testImplementation &apos;junit:junit:4.12&apos;</span><br><span class="line">    androidTestImplementation &apos;com.android.support.test:runner:1.0.2&apos;</span><br><span class="line">    androidTestImplementation &apos;com.android.support.test.espresso:espresso-core:3.0.2&apos;</span><br><span class="line"></span><br><span class="line">    annotationProcessor &quot;org.androidannotations:androidannotations:$AASnapshotVersion&quot;</span><br><span class="line">    api &quot;org.androidannotations:androidannotations-api:$AASnapshotVersion&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
+        
+          <a class="article-more-a" href="/2018/05/23/AndroidAnnotations框架的配置/#more">more >></a>
+        
       
 
       
@@ -560,15 +519,9 @@
         <p><img src="../img/hearthstone.png" alt=""></p>
 <p>其实早就想制作一款卡牌游戏了，苦于没有时间，迟迟未能实现。<br>所以这次，我又得延期了（苦逼考研狗）。<br>参考炉石传说，写下一些初步构想。</p>
 <h2 id="世界观"><a href="#世界观" class="headerlink" title="世界观"></a>世界观</h2><p>立足于《山海经》等一系列的志怪古籍，种族的话应该挺好想的，例如神仙、妖怪、人、神兽、龙什么的。关键是如何立足于志怪古籍的基础上，编写背景故事（想到我的文笔就头疼）。</p>
-<h2 id="社交机制"><a href="#社交机制" class="headerlink" title="社交机制"></a>社交机制</h2><p>社交肯定是要受到限制的。<br>炉石就限制了陌生玩家之间的交流，你只能发出文字表情。为什么呢？一方面因为这是个策略游戏，玩家应该更专注于下一步该怎么做；另一方面是因为：如果陌生玩家可以交流的话，估计敲尼玛要满天飞了。<br>考虑到正在着手做的Anichat，能不能让玩家可以用Live2D虚拟人物等来表现他们的情绪呢？<br>打的不错哦~</p>
-<h2 id="新的卡牌类型"><a href="#新的卡牌类型" class="headerlink" title="新的卡牌类型"></a>新的卡牌类型</h2><p>除去和炉石一样的随从，武器，法术，任务，DK（当然要改名了），应该增加新的卡牌类型：</p>
-<ul>
-<li>陷阱卡</li>
-<li>环境卡</li>
-</ul>
-<h2 id="美工和配音"><a href="#美工和配音" class="headerlink" title="美工和配音"></a>美工和配音</h2><p>美工真是个大问题，说不定得请外援，实在不行，我就…<br>配音我相信他们几个肯定能骚出来。</p>
-<p>想想就激动，先写到这吧；）</p>
-
+        
+          <a class="article-more-a" href="/2018/05/23/卡牌游戏设计构想/#more">more >></a>
+        
       
 
       
@@ -719,6 +672,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">游戏制作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
@@ -732,14 +693,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">游戏制作</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>
