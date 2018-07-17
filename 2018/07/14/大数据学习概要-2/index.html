@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="GochenRyan的博客">
 <meta property="og:description" content="hadoop的几种安装模式： 单机模式 伪分布模式 集群模式  HDFSHDFS是Hadoop项目的核心子项目，被设计在商品硬件上运行设计的前提和目标：    硬件容错：故障检测和自动恢复 流式数据访问 超大规模数据集 简单一致性模型 移动计算比移动数据便宜 跨异构硬件和软件平台的可移植性">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/07/14/img/SecondaryNameNode1.png">
-<meta property="og:updated_time" content="2018-07-15T06:42:59.509Z">
+<meta property="og:image" content="http://yoursite.com/img/SecondaryNameNode1.png">
+<meta property="og:updated_time" content="2018-07-17T10:40:35.415Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据学习概要(2)">
 <meta name="twitter:description" content="hadoop的几种安装模式： 单机模式 伪分布模式 集群模式  HDFSHDFS是Hadoop项目的核心子项目，被设计在商品硬件上运行设计的前提和目标：    硬件容错：故障检测和自动恢复 流式数据访问 超大规模数据集 简单一致性模型 移动计算比移动数据便宜 跨异构硬件和软件平台的可移植性">
-<meta name="twitter:image" content="http://yoursite.com/2018/07/14/img/SecondaryNameNode1.png">
+<meta name="twitter:image" content="http://yoursite.com/img/SecondaryNameNode1.png">
   
     <link rel="alternative" href="/atom.xml" title="GochenRyan的博客" type="application/atom+xml">
   
@@ -219,7 +219,7 @@
 <li>维护了block id到DataNode本地文件的映射关系</li>
 </ul>
 <p>DataNode启动后向NameNode注册，通过周期性(1小时)的向NameNode上报所有的块信息，每3秒发送心跳信息；超过10min没有收到心跳信息，宕机.  </p>
-<p>Secondary NameNode作用<br><img src="../img/SecondaryNameNode1.png" alt="SecondaryNameNode"></p>
+<p>Secondary NameNode作用<br><img src="/img/SecondaryNameNode1.png" alt="SecondaryNameNode"></p>
 <p>Safe Mode：只读</p>
 
       
@@ -508,14 +508,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">游戏制作</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
@@ -524,15 +516,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">游戏制作</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">YARN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
               </li>
             
             <div class="clearfix"></div>

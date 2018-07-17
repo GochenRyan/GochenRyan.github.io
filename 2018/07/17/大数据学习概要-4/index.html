@@ -6,20 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>鱼 | GochenRyan的博客</title>
+  <title>大数据学习概要(4) | GochenRyan的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我猜每个人的一生里都会遇见某个人，喜欢上她。有些人在合适的时间相遇，就像是在春天遇到花开，于是一切都会很好，他们会相恋、订婚、结婚、一起生活。而有些人在错误的时间相遇，就像是在冬天隔着冰看见浮上来换气的鱼，鱼换完气沉到水下去，再也看不见了，什么结果都没有。但我们能说在春天遇到花是对的，而在冬天遇到鱼是错的么？在错误的时间遇到，就能克制自己不喜欢那个人么？是不是仍然会用尽了力气想去接近，想尽办法掩">
-<meta name="keywords" content="随笔">
+  <meta name="description" content="YARNmaster-slave架构模型  ResourceManager:Scheduler、ApplicationsManager NodeManager ApplicationMaster Container">
+<meta name="keywords" content="大数据,YARN,Hive">
 <meta property="og:type" content="article">
-<meta property="og:title" content="鱼">
-<meta property="og:url" content="http://yoursite.com/2018/06/15/鱼/index.html">
+<meta property="og:title" content="大数据学习概要(4)">
+<meta property="og:url" content="http://yoursite.com/2018/07/17/大数据学习概要-4/index.html">
 <meta property="og:site_name" content="GochenRyan的博客">
-<meta property="og:description" content="我猜每个人的一生里都会遇见某个人，喜欢上她。有些人在合适的时间相遇，就像是在春天遇到花开，于是一切都会很好，他们会相恋、订婚、结婚、一起生活。而有些人在错误的时间相遇，就像是在冬天隔着冰看见浮上来换气的鱼，鱼换完气沉到水下去，再也看不见了，什么结果都没有。但我们能说在春天遇到花是对的，而在冬天遇到鱼是错的么？在错误的时间遇到，就能克制自己不喜欢那个人么？是不是仍然会用尽了力气想去接近，想尽办法掩">
+<meta property="og:description" content="YARNmaster-slave架构模型  ResourceManager:Scheduler、ApplicationsManager NodeManager ApplicationMaster Container">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-15T01:48:00.543Z">
+<meta property="og:image" content="http://yoursite.com/img/yarn_architecture.gif">
+<meta property="og:image" content="http://yoursite.com/img/Hive_Structure.jpg">
+<meta property="og:image" content="http://yoursite.com/img/HiveAndRelationalDB.png">
+<meta property="og:updated_time" content="2018-07-17T10:40:02.994Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="鱼">
-<meta name="twitter:description" content="我猜每个人的一生里都会遇见某个人，喜欢上她。有些人在合适的时间相遇，就像是在春天遇到花开，于是一切都会很好，他们会相恋、订婚、结婚、一起生活。而有些人在错误的时间相遇，就像是在冬天隔着冰看见浮上来换气的鱼，鱼换完气沉到水下去，再也看不见了，什么结果都没有。但我们能说在春天遇到花是对的，而在冬天遇到鱼是错的么？在错误的时间遇到，就能克制自己不喜欢那个人么？是不是仍然会用尽了力气想去接近，想尽办法掩">
+<meta name="twitter:title" content="大数据学习概要(4)">
+<meta name="twitter:description" content="YARNmaster-slave架构模型  ResourceManager:Scheduler、ApplicationsManager NodeManager ApplicationMaster Container">
+<meta name="twitter:image" content="http://yoursite.com/img/yarn_architecture.gif">
   
     <link rel="alternative" href="/atom.xml" title="GochenRyan的博客" type="application/atom+xml">
   
@@ -155,30 +159,45 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-鱼" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-大数据学习概要-4" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      鱼
+      大数据学习概要(4)
     </h1>
   
 
         
-        <a href="/2018/06/15/鱼/" class="archive-article-date">
-  	<time datetime="2018-06-15T08:38:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-15</time>
+        <a href="/2018/07/17/大数据学习概要-4/" class="archive-article-date">
+  	<time datetime="2018-07-17T08:51:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>我猜每个人的一生里都会遇见某个人，喜欢上她。有些人在合适的时间相遇，就像是在春天遇到花开，于是一切都会很好，他们会相恋、订婚、结婚、一起生活。而有些人在错误的时间相遇，就像是在冬天隔着冰看见浮上来换气的鱼，鱼换完气沉到水下去，再也看不见了，什么结果都没有。<br>但我们能说在春天遇到花是对的，而在冬天遇到鱼是错的么？在错误的时间遇到，就能克制自己不喜欢那个人么？是不是仍然会用尽了力气想去接近，想尽办法掩饰自己，甚至伪装成另外一条鱼。</p>
-</blockquote>
-<p>虽然心里空空的，<br>但是我还没想着放弃。<br>这世界还存在许多可能性，<br>这些可能性还能让我继续前行。</p>
+        <h2 id="YARN"><a href="#YARN" class="headerlink" title="YARN"></a>YARN</h2><p>master-slave架构模型</p>
+<ul>
+<li>ResourceManager:Scheduler、ApplicationsManager</li>
+<li>NodeManager</li>
+<li>ApplicationMaster</li>
+<li>Container</li>
+</ul>
+<a id="more"></a>
+<p><img src="/img/yarn_architecture.gif" alt="yarn_architecture"></p>
+<h2 id="Hive"><a href="#Hive" class="headerlink" title="Hive"></a>Hive</h2><p>Hadoop的数据仓库框架，将HDFS中的结构化数据映射为数据表，并使用SQL语句转换为MapReduce作业进行运行。</p>
+<p>Hive架构<br><img src="/img/Hive_Structure.jpg" alt="Hive_Structure.jpg"></p>
+<p>HiveSever2：支持并发和身份验证 </p>
+<p>Hive中表的类型</p>
+<ul>
+<li>内部表和外部表</li>
+<li>分区表</li>
+<li>分桶表</li>
+</ul>
+<p>Hive与关系型数据库的区别<br><img src="/img/HiveAndRelationalDB.png" alt="HiveAndRelationalDB"></p>
 
       
 
@@ -223,7 +242,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">大数据</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">YARN</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hive</a>
         		</li>
       		
 		</ul>
@@ -279,7 +306,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/06/15/鱼/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/07/17/大数据学习概要-4/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -293,18 +320,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/07/13/大数据学习概要-1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          大数据学习概要(1)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/05/23/AndroidAnnotations框架的配置/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">AndroidAnnotations框架的配置</div>
+    <a href="/2018/07/15/大数据学习概要-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">大数据学习概要(3)</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -355,8 +373,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2018/06/15/鱼/", 
-    sourceId: "鱼",
+    url: "http://yoursite.com/2018/07/17/大数据学习概要-4/", 
+    sourceId: "大数据学习概要-4",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
