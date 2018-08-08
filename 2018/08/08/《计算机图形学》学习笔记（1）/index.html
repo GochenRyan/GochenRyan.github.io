@@ -6,24 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>大数据学习概要(3) | GochenRyan的博客</title>
+  <title>《计算机图形学》学习笔记（1） | GochenRyan的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MapReduce不擅长方面    实时计算 流式计算 DAG计算">
-<meta name="keywords" content="大数据,Hadoop,MapReduce">
+  <meta name="description" content="坐标系左右手坐标系大拇指开始依次XYZ 观察流水线：建模坐标系-&amp;gt;世界坐标系-&amp;gt;观察和投影坐标系-&amp;gt;规范化设备坐标系-&amp;gt;设备坐标系 OpenGL语法 函数名以gl为前缀，函数名中每一个组成词的第一个字母要大写，如glBegin   符号常量参数名、参数的值、特定的模式。常量均以GL开头，常量名中每一个组成词均大写，单词之间用“_”隔开，如GL_RGB    数据类型不同机器">
+<meta name="keywords" content="计算机图形学,OpenGL,glut">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大数据学习概要(3)">
-<meta property="og:url" content="http://yoursite.com/2018/07/15/大数据学习概要-3/index.html">
+<meta property="og:title" content="《计算机图形学》学习笔记（1）">
+<meta property="og:url" content="http://yoursite.com/2018/08/08/《计算机图形学》学习笔记（1）/index.html">
 <meta property="og:site_name" content="GochenRyan的博客">
-<meta property="og:description" content="MapReduce不擅长方面    实时计算 流式计算 DAG计算">
+<meta property="og:description" content="坐标系左右手坐标系大拇指开始依次XYZ 观察流水线：建模坐标系-&amp;gt;世界坐标系-&amp;gt;观察和投影坐标系-&amp;gt;规范化设备坐标系-&amp;gt;设备坐标系 OpenGL语法 函数名以gl为前缀，函数名中每一个组成词的第一个字母要大写，如glBegin   符号常量参数名、参数的值、特定的模式。常量均以GL开头，常量名中每一个组成词均大写，单词之间用“_”隔开，如GL_RGB    数据类型不同机器">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/img/ProcessOfMapReduce.jpg">
-<meta property="og:image" content="http://yoursite.com/img/Map_Reduce.png">
-<meta property="og:image" content="http://yoursite.com/img/ProcessOfShuffle.jpg">
-<meta property="og:updated_time" content="2018-07-17T10:40:45.588Z">
+<meta property="og:image" content="http://yoursite.com/img/opengl_img/left_right.jpg">
+<meta property="og:image" content="http://yoursite.com/img/opengl_img/coordinate_trans.png">
+<meta property="og:updated_time" content="2018-08-08T11:02:59.250Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大数据学习概要(3)">
-<meta name="twitter:description" content="MapReduce不擅长方面    实时计算 流式计算 DAG计算">
-<meta name="twitter:image" content="http://yoursite.com/img/ProcessOfMapReduce.jpg">
+<meta name="twitter:title" content="《计算机图形学》学习笔记（1）">
+<meta name="twitter:description" content="坐标系左右手坐标系大拇指开始依次XYZ 观察流水线：建模坐标系-&amp;gt;世界坐标系-&amp;gt;观察和投影坐标系-&amp;gt;规范化设备坐标系-&amp;gt;设备坐标系 OpenGL语法 函数名以gl为前缀，函数名中每一个组成词的第一个字母要大写，如glBegin   符号常量参数名、参数的值、特定的模式。常量均以GL开头，常量名中每一个组成词均大写，单词之间用“_”隔开，如GL_RGB    数据类型不同机器">
+<meta name="twitter:image" content="http://yoursite.com/img/opengl_img/left_right.jpg">
   
     <link rel="alternative" href="/atom.xml" title="GochenRyan的博客" type="application/atom+xml">
   
@@ -159,41 +158,43 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-大数据学习概要-3" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-《计算机图形学》学习笔记（1）" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      大数据学习概要(3)
+      《计算机图形学》学习笔记（1）
     </h1>
   
 
         
-        <a href="/2018/07/15/大数据学习概要-3/" class="archive-article-date">
-  	<time datetime="2018-07-15T06:39:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-15</time>
+        <a href="/2018/08/08/《计算机图形学》学习笔记（1）/" class="archive-article-date">
+  	<time datetime="2018-08-08T10:59:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>不擅长方面  </p>
-<ul>
-<li>实时计算</li>
-<li>流式计算</li>
-<li>DAG计算</li>
+        <h2 id="坐标系"><a href="#坐标系" class="headerlink" title="坐标系"></a>坐标系</h2><h3 id="左右手坐标系"><a href="#左右手坐标系" class="headerlink" title="左右手坐标系"></a>左右手坐标系</h3><p>大拇指开始依次XYZ<br><img src="/img/opengl_img/left_right.jpg" alt="left_right.jpg"></p>
+<h3 id="观察流水线："><a href="#观察流水线：" class="headerlink" title="观察流水线："></a>观察流水线：</h3><p>建模坐标系-&gt;世界坐标系-&gt;观察和投影坐标系-&gt;规范化设备坐标系-&gt;设备坐标系<br><img src="/img/opengl_img/coordinate_trans.png" alt="coordinate_trans.png"></p>
+<h2 id="OpenGL"><a href="#OpenGL" class="headerlink" title="OpenGL"></a>OpenGL</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><ul>
+<li>函数名<br>以gl为前缀，函数名中每一个组成词的第一个字母要大写，如glBegin  </li>
+<li>符号常量<br>参数名、参数的值、特定的模式。常量均以GL开头，常量名中每一个组成词均大写，单词之间用“_”隔开，如GL_RGB   </li>
+<li>数据类型<br>不同机器上的整数描述范围可能有所不同，OpenGL采用专用的内置数据类型名来描述数据类型，如GLfloat</li>
 </ul>
-<a id="more"></a>
-<p>步骤</p>
-<ul>
-<li>高度并行的map阶段</li>
-<li>reduce阶段</li>
-</ul>
-<p><img src="/img/ProcessOfMapReduce.jpg" alt="ProcessOfMapReduce"></p>
-<p><img src="/img/Map_Reduce.png" alt="MapandReduce"></p>
-<p>shuffle过程简介<br><img src="/img/ProcessOfShuffle.jpg" alt="ProcessOfShuffle"><br>缓存到80%开始溢写,溢写过程：分区、排序、合并</p>
+<h3 id="GLUT"><a href="#GLUT" class="headerlink" title="GLUT"></a>GLUT</h3><p>GLUT代表OpenGL应用工具包，英文全称为OpenGL Utility Toolkit，是一个和窗口系统无关的软件包，它由Mark Kilgard在SGI时写的。GLUT适合学习OpenGL和开发简单的OpenGL应用程序。</p>
+<h4 id="使用GLUT进行显示窗口管理："><a href="#使用GLUT进行显示窗口管理：" class="headerlink" title="使用GLUT进行显示窗口管理："></a>使用GLUT进行显示窗口管理：</h4><ol>
+<li><code>glutInit(&amp;argc, argv);</code><br>完成glut初始化</li>
+<li><code>glutCreateWindow(char *name);</code><br>显示窗口在创建时给定一个标题</li>
+<li><code>glutDisplayFunc(lineSegment);</code><br>注册一个绘图函数lineSegment()</li>
+<li><code>glutMainLoop();</code><br>必须是程序中的最后一个，它显示初始图形并使程序进入检查鼠标或键盘等设备输入的无穷循环中</li>
+<li><code>glutInitWindowPosition(int x, int y);</code><br>给出显示窗<strong>左上角</strong>的初始位置(x,y)，单位：像素</li>
+<li><code>glutInitWindowSize(int width, int height);</code><br>设定显示窗口的初始宽度和高度的像素数</li>
+<li><code>glutInitDisplayMode(unsigned int mode)</code><br>设定显示窗口的缓存和颜色模型等选项，例：<code>glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);</code></li>
+</ol>
 
       
 
@@ -238,15 +239,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">大数据</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">计算机图形学</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenGL</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MapReduce</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">glut</a>
         		</li>
       		
 		</ul>
@@ -302,7 +303,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/07/15/大数据学习概要-3/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/08/08/《计算机图形学》学习笔记（1）/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -316,18 +317,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/07/17/大数据学习概要-4/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          大数据学习概要(4)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/07/14/大数据学习概要-2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">大数据学习概要(2)</div>
+    <a href="/2018/08/05/GLUT-VS2017环境配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">GLUT+VS2017环境配置</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -378,8 +370,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2018/07/15/大数据学习概要-3/", 
-    sourceId: "大数据学习概要-3",
+    url: "http://yoursite.com/2018/08/08/《计算机图形学》学习笔记（1）/", 
+    sourceId: "《计算机图形学》学习笔记（1）",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
