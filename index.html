@@ -177,23 +177,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="坐标系"><a href="#坐标系" class="headerlink" title="坐标系"></a>坐标系</h2><h3 id="左右手坐标系"><a href="#左右手坐标系" class="headerlink" title="左右手坐标系"></a>左右手坐标系</h3><p>大拇指开始依次XYZ<br><img src="/img/opengl_img/left_right.jpg" alt="left_right.jpg"></p>
-<h3 id="观察流水线："><a href="#观察流水线：" class="headerlink" title="观察流水线："></a>观察流水线：</h3><p>建模坐标系-&gt;世界坐标系-&gt;观察和投影坐标系-&gt;规范化设备坐标系-&gt;设备坐标系<br><img src="/img/opengl_img/coordinate_trans.png" alt="coordinate_trans.png"></p>
-<h2 id="OpenGL"><a href="#OpenGL" class="headerlink" title="OpenGL"></a>OpenGL</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><ul>
-<li>函数名<br>以gl为前缀，函数名中每一个组成词的第一个字母要大写，如glBegin  </li>
-<li>符号常量<br>参数名、参数的值、特定的模式。常量均以GL开头，常量名中每一个组成词均大写，单词之间用“_”隔开，如GL_RGB   </li>
-<li>数据类型<br>不同机器上的整数描述范围可能有所不同，OpenGL采用专用的内置数据类型名来描述数据类型，如GLfloat</li>
-</ul>
-<h3 id="GLUT"><a href="#GLUT" class="headerlink" title="GLUT"></a>GLUT</h3><p>GLUT代表OpenGL应用工具包，英文全称为OpenGL Utility Toolkit，是一个和窗口系统无关的软件包，它由Mark Kilgard在SGI时写的。GLUT适合学习OpenGL和开发简单的OpenGL应用程序。</p>
-<h4 id="使用GLUT进行显示窗口管理："><a href="#使用GLUT进行显示窗口管理：" class="headerlink" title="使用GLUT进行显示窗口管理："></a>使用GLUT进行显示窗口管理：</h4><ol>
-<li><code>glutInit(&amp;argc, argv);</code><br>完成glut初始化</li>
-<li><code>glutCreateWindow(char *name);</code><br>显示窗口在创建时给定一个标题</li>
-<li><code>glutDisplayFunc(lineSegment);</code><br>注册一个绘图函数lineSegment()</li>
-<li><code>glutMainLoop();</code><br>必须是程序中的最后一个，它显示初始图形并使程序进入检查鼠标或键盘等设备输入的无穷循环中</li>
-<li><code>glutInitWindowPosition(int x, int y);</code><br>给出显示窗<strong>左上角</strong>的初始位置(x,y)，单位：像素</li>
-<li><code>glutInitWindowSize(int width, int height);</code><br>设定显示窗口的初始宽度和高度的像素数</li>
-<li><code>glutInitDisplayMode(unsigned int mode)</code><br>设定显示窗口的缓存和颜色模型等选项，例：<code>glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);</code></li>
-</ol>
-
+        
       
 
       
@@ -1088,10 +1072,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">OpenGL</a>
               </li>
              
@@ -1100,11 +1080,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">游戏制作</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">计算机图形学</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">glut</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1120,15 +1112,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+                <a href="javascript:void(0)" class="js-tag color5">YARN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">计算机图形学</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">glut</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1140,11 +1128,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">YARN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hive</a>
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">
