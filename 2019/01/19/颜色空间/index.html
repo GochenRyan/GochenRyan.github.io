@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="GochenRyan的博客">
 <meta property="og:description" content="根据数字图像色彩表示方式的不同，数字图像有几种不同的颜色空间（颜色模型），如RGB颜色空间、HSV颜色空间、YUV颜色空间等">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-19T09:04:17.894Z">
+<meta property="og:updated_time" content="2019-01-19T09:06:46.920Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="颜色空间">
 <meta name="twitter:description" content="根据数字图像色彩表示方式的不同，数字图像有几种不同的颜色空间（颜色模型），如RGB颜色空间、HSV颜色空间、YUV颜色空间等">
@@ -177,13 +177,10 @@
       
         <p>根据数字图像色彩表示方式的不同，数字图像有几种不同的颜色空间（颜色模型），如RGB颜色空间、HSV颜色空间、YUV颜色空间等</p>
 <a id="more"></a>
-<h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>RGB颜色空间是由Red（红色）、Green（绿色）、Blue（蓝色）组成的一种颜色空间。</p>
-<p>RGB颜色空间类似一个三维的坐标系，红色、绿色和蓝色分别是一个坐标轴，每种颜色都是空间中的点，由三个数值组成，分别表示在红色、绿色、蓝色上的分量。(0,0,0)表示纯黑色，(255,255,255)表示纯白色，(0,0,255)表示蓝色。</p>
-<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>HSV颜色空间由Hue（色调）、Saturation（饱和度）和Value（亮度）组成。</p>
-<p>HSV颜色空间类似一个六角椎体，如图2-10所示。色调通常指代颜色名称。饱和度表示掺入白光的分量，掺入白光的分量越多，则饱和度越低，即S值越小；掺入白光的分量越少，则饱和度越高，即S值越大。亮度表示掺入黑光的分量，掺入黑光的分量越多，则亮度越低，即V越小；掺入黑光的分量越少，则亮度越高，即V越大。</p>
+<h2 id="RGB颜色空间"><a href="#RGB颜色空间" class="headerlink" title="RGB颜色空间"></a>RGB颜色空间</h2><p>RGB颜色空间是由Red（红色）、Green（绿色）、Blue（蓝色）组成的一种颜色空间。<br>RGB颜色空间类似一个三维的坐标系，红色、绿色和蓝色分别是一个坐标轴，每种颜色都是空间中的点，由三个数值组成，分别表示在红色、绿色、蓝色上的分量。(0,0,0)表示纯黑色，(255,255,255)表示纯白色，(0,0,255)表示蓝色。</p>
+<h2 id="HSV颜色空间"><a href="#HSV颜色空间" class="headerlink" title="HSV颜色空间"></a>HSV颜色空间</h2><p>HSV颜色空间由Hue（色调）、Saturation（饱和度）和Value（亮度）组成。<br>HSV颜色空间类似一个六角椎体，如图2-10所示。色调通常指代颜色名称。饱和度表示掺入白光的分量，掺入白光的分量越多，则饱和度越低，即S值越小；掺入白光的分量越少，则饱和度越高，即S值越大。亮度表示掺入黑光的分量，掺入黑光的分量越多，则亮度越低，即V越小；掺入黑光的分量越少，则亮度越高，即V越大。</p>
 <h2 id="YUV颜色空间"><a href="#YUV颜色空间" class="headerlink" title="YUV颜色空间"></a>YUV颜色空间</h2><p>YUV颜色空间是欧洲电视系统使用的一种色彩编码空间，在现代的彩色电视系统中，通过三管彩色摄影机和彩色CCD摄影机得到的彩色图像信号，经过分色、分别放大校正得到RGB，再进一步经矩阵变换电路得到亮度信号Y和两个色差信号R-Y（U）、B-Y（V），最后发送端对这三个信号分别编码，再使用同一信道发出去，这就是YUV颜色空间。若只有亮度Y，没有U和V，则形成了黑白灰度图像。</p>
-<h2 id="颜色空间的转换"><a href="#颜色空间的转换" class="headerlink" title="颜色空间的转换"></a>颜色空间的转换</h2><h3 id="RGB到HSV"><a href="#RGB到HSV" class="headerlink" title="RGB到HSV"></a>RGB到HSV</h3><p>在MATLAB中，函数rgb2hsv()可以实现RGB到HSV颜色空间的转换，用法如下。</p>
-<p>hsv=rgb2hsv(rgb)rgb是输入的原RGB图像，它是一个三维的M×N×3的数组，分别是图像的红色、绿色和蓝色的分量。hsv是经过转换后的HSV图像，它是一个三维的M×N×3的数组，分别表示图像的色调、饱和度和亮度信息。</p>
+<h2 id="颜色空间的转换"><a href="#颜色空间的转换" class="headerlink" title="颜色空间的转换"></a>颜色空间的转换</h2><h3 id="RGB到HSV"><a href="#RGB到HSV" class="headerlink" title="RGB到HSV"></a>RGB到HSV</h3><p>在MATLAB中，函数rgb2hsv()可以实现RGB到HSV颜色空间的转换，用法如下。<br>hsv=rgb2hsv(rgb)rgb是输入的原RGB图像，它是一个三维的M×N×3的数组，分别是图像的红色、绿色和蓝色的分量。hsv是经过转换后的HSV图像，它是一个三维的M×N×3的数组，分别表示图像的色调、饱和度和亮度信息。</p>
 <h3 id="HSV到RGB"><a href="#HSV到RGB" class="headerlink" title="HSV到RGB"></a>HSV到RGB</h3><p>函数hsv2rgb()就可以实现HSV到RGB颜色空间的转换，格式如下。rgb=hsv2rgb(hsv)hsv是输入的原HSV图像，rgb是经过转换后的RGB图像。</p>
 <h3 id="RGB到YUV"><a href="#RGB到YUV" class="headerlink" title="RGB到YUV"></a>RGB到YUV</h3><p>没有函数，自己写。</p>
 
@@ -460,11 +457,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">计算机图形学</a>
+                <a href="javascript:void(0)" class="js-tag color2">OpenGL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OpenGL</a>
+                <a href="javascript:void(0)" class="js-tag color5">Glut</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">计算机图形学</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -476,10 +481,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">大数据</a>
               </li>
              
@@ -488,15 +489,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Glut</a>
+                <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,7 +505,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">刷脸背后：人脸检测 人脸识别 人脸检索</a>
+                <a href="javascript:void(0)" class="js-tag color4">RDD</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -520,7 +517,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RDD</a>
+                <a href="javascript:void(0)" class="js-tag color5">刷脸背后：人脸检测 人脸识别 人脸检索</a>
               </li>
             
             <div class="clearfix"></div>
