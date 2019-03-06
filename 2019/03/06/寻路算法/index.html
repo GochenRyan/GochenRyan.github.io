@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: RDD | GochenRyan的博客</title>
+  <title>寻路算法 | GochenRyan的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="呆代码，学建模，想画画。豆豆骑士团团长。">
-<meta name="keywords" content="计算机图形学,OpenGL,C++,C#,Unity3d,3DsMax,游戏引擎,游戏制作,编程,代码,开源">
-<meta property="og:type" content="website">
-<meta property="og:title" content="GochenRyan的博客">
-<meta property="og:url" content="http://yoursite.com/tags/RDD/index.html">
+  <meta name="description" content="主要介绍了Dijkstra、BFS和A*三种算法。">
+<meta name="keywords" content="算法的乐趣,游戏编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="寻路算法">
+<meta property="og:url" content="http://yoursite.com/2019/03/06/寻路算法/index.html">
 <meta property="og:site_name" content="GochenRyan的博客">
-<meta property="og:description" content="呆代码，学建模，想画画。豆豆骑士团团长。">
+<meta property="og:description" content="主要介绍了Dijkstra、BFS和A*三种算法。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-06T07:35:41.138Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GochenRyan的博客">
-<meta name="twitter:description" content="呆代码，学建模，想画画。豆豆骑士团团长。">
+<meta name="twitter:title" content="寻路算法">
+<meta name="twitter:description" content="主要介绍了Dijkstra、BFS和A*三种算法。">
   
     <link rel="alternative" href="/atom.xml" title="GochenRyan的博客" type="application/atom+xml">
   
@@ -154,64 +155,251 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-寻路算法" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/20/大数据学习概要-6/" class="archive-article-date">
-  	<time datetime="2018-07-20T01:57:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/20/大数据学习概要-6/">大数据学习概要(6)</a>
+    <h1 class="article-title" itemprop="name">
+      寻路算法
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/03/06/寻路算法/" class="archive-article-date">
+  	<time datetime="2019-03-06T07:26:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>主要介绍了Dijkstra、BFS和A*三种算法。</p>
+<a id="more"></a>
+<h2 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h2><p>Dijkstra算法是典型的单源最短路径算法，适用于求解没有负权边的带权有向图的单源最短路径问题，所谓的单源可以理解为一个出发点，Dijkstra算法可以求得从这个出发点到图中其他顶点的最短路径。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ol>
+<li>dist[]：存放当前找到的从s到每个顶点vi的最短路径；</li>
+<li>W(s,m)：连接s和m的边的权；</li>
+<li>集合S、集合Q：集合S存放所有已知dist[vi]都已经是最短路径的顶点，其余的顶点都在集合Q中；</li>
+<li>prev[]：存放当前节点在最短路径上的前驱节点。</li>
+</ol>
+<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><ol>
+<li>初始化集合S和Q，设起点dist[s]=0，并将其他顶点的dist[vi]设为无穷大；</li>
+<li>从Q中选择一个dist[u]值最小的顶点u，将u从集合Q中移到集合S中；</li>
+<li>以u为当前顶点，修改Q中与u相连的顶点的距离。修改的方法是：对于集合Q中每一个与u相连的顶点vi，如果从起点s经u到的vi距离dist[u] + W(u, vi)的值小于当前vi的距离dist[vi]，则将dist[vi]的值修正为dist[u] + W(u, vi)的值，同时将顶点vi的前驱顶点记为u；</li>
+<li>重复步骤(2)和(3)，直到集合Q为空。第(3)步记录顶点的前驱顶点操作不是算法的必需内容，记录前驱顶点的目的仅仅是为了能够回溯每条最短路径的顶点连接关系。</li>
+</ol>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">void Dijkstra(DIJKSTRA_GRAPH graph)&#123;</span><br><span class="line">    std::set&lt;int&gt; S,Q;</span><br><span class="line">    for(int i = 0; i &lt; graph-&gt;node.size(); i++) &#123;</span><br><span class="line">        graph-&gt;dist[i] = graph-&gt;[graph-&gt;source][i];</span><br><span class="line">        graph-&gt;prev[i] = (graph-&gt;dist[i] == MAX_DISTANCE)? -1:graph-&gt;source;</span><br><span class="line">        Q.insert(i);</span><br><span class="line">    &#125;</span><br><span class="line">    graph-&gt;dist[graph-&gt;source] = 0;</span><br><span class="line">    while(!Q.empty())&#123;</span><br><span class="line">        int u = Extract_Min(graph,Q);</span><br><span class="line">        S.insert(u);</span><br><span class="line">        for(auto it = Q.begin(); it != Q.end(); ++it) &#123; </span><br><span class="line">             int v = it;</span><br><span class="line">             if((graph-&gt;adj[u][v] &lt;MAX_DISTANCE)&amp;&amp;(graph-&gt;dist[u] + graph-&gt;adj[u][v] &lt;graph-&gt;dist[v]))&#123; //小于MAX_DISTANCE表示有边相连 </span><br><span class="line">                graph-&gt;dist[v] = graph-&gt;dist[u] + graph-&gt;adj[u][v]; //更新</span><br><span class="line">                distgraph-&gt;prev[v] = u; //记录前驱顶点 </span><br><span class="line">             &#125; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="启发式搜索算法"><a href="#启发式搜索算法" class="headerlink" title="启发式搜索算法"></a>启发式搜索算法</h2><h3 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h3><p>BFS算法是在广度优先搜索算法的基础上加入评估函数，通过评估函数剪枝，避免一些明显不可能得到最短路径的搜索动作。在没有障碍物的地图上，其算法效果接近A*算法，总体上远远优于Dijkstra算法。但是BFS算法因为评价函数只考虑位置方向信息，基于贪心策略，总是试图向最接近目标点的方向移动，使得这种算法在有障碍物的地图上表现不佳，很多情况下得到的路径都不是最短路径。</p>
+<h4 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h4><p>启发函数：即评估函数，评估函数的作用就是根据起点和终点的位置和距离信息给出下一步需要搜索各个位置的评估值，启发式搜索算法可以有以下三种方式利用这些评估值：  </p>
+<ol>
+<li>根据评估结果，每次选择评估值最高的位置开始下一步搜索，避免盲目的穷举搜索；  </li>
+<li>决定搜索的顺序，按照评估值的高低排序，从评估值最高的位置开始下一步搜索（如果评估值高的位置没找到结果，则评估值较低的位置也能被顺序处理到）；  </li>
+<li>剪枝，去除一些明显不可能得到最优结果的搜索位置，提高搜索效率。</li>
+</ol>
+<h3 id="A"><a href="#A" class="headerlink" title="A*"></a>A*</h3><p>A*算法既能像Dijkstra算法那样搜索到最短路径，又能像BFS算法一样使用启发函数进行启发式搜索，是目前各种寻径算法中最受欢迎的选择。即使在有障碍物的情况下，选择合适的距离评估函数，A*算法基本上都能搜索到最短路径。<br>A*算法的启发函数采用的计算公式是：F(n) = G(h) + H(n)。F(n)就是A*算法对每个点的评估函数。</p>
+<h4 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h4><ol>
+<li>G(n)：从起点到当前节点n的实际代价，也就是从起点到当前节点的移动距离。相邻的两个点的移动距离是1，当前点距离起点越远，这个值就越大。如果我们设G(n)的值总是0，则算法的效果类似于BFS算法；</li>
+<li>H(n)：从当前节点n到终点的距离评估值。这是一个从当前节点到终点的移动距离的估计值。如果设H(n)的值总是0，则算法可退化得到类似Dijkstra算法的效果；</li>
+<li>OPEN表：存放当前已经被发现但是还没有搜索过的节点；</li>
+<li>CLOSE表：存放已经搜索过的节点；</li>
+<li>距离评估函数：曼哈顿距离、欧氏几何平面距离和切比雪夫距离；</li>
+<li>曼哈顿距离：两个点在各个坐标轴上的距离差值的几何；</li>
+<li>欧式几何平面距离：n维空间中两个点之间的真实距离（几何距离）；</li>
+<li>切比雪夫距离：向量中各个分量的差的绝对值中最大的那一个。</li>
+</ol>
+<h4 id="算法步骤-1"><a href="#算法步骤-1" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li>初始化OPEN表和CLOSE表，将起点加入到OPEN表中；</li>
+<li>从OPEN表中取出当前F(n)值最小的节点作为当前搜索节点U，将U节点加入到CLOSE表中；</li>
+<li>对于每一个与U可连通的节点（障碍物不相通）V，考察V：如果V已经在CLOSE表中，则对该节点不做任何处理；如果V不在OPEN表中，则计算F(V)，将V的前驱节点设置为U并将V加入到OPEN表中；如果V在OPEN表中，比较G(U) + 1与G(V)的大小（H(V)的值是不变的），如果G(U) + 1&lt;G(V)，则令G(V) = G(U) + 1，同时将V的前驱节点设置为U。重复步骤(2)和(3)，直到第(2)步得到的搜索节点U就是终点为止，此时算法结束。</li>
+</ol>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">void AStar(ASTAR_GRAPH graph, GRID_CELL gc) &#123; </span><br><span class="line">    //步骤(1) </span><br><span class="line">    graph-&gt;open.insert(graph-&gt;source); </span><br><span class="line">    //步骤(2) </span><br><span class="line">    ANODE cur_node; </span><br><span class="line">    while(ExtractMiniFromOpen(graph, cur_node)) &#123; </span><br><span class="line">        graph-&gt;close.push_back(cur_node); </span><br><span class="line">        if(cur_node== graph-&gt;target) &#123; </span><br><span class="line">            UpdateCellInfo(graph, gc); </span><br><span class="line">            break; </span><br><span class="line">        &#125; </span><br><span class="line">        //步骤(3) </span><br><span class="line">        for(int d = 0; d &lt;COUNT_OF(dir); d++) &#123; </span><br><span class="line">            ANODEnn = &#123;cur_node.i + dir[d].y, cur_node.j + dir[d].x, 0, 0&#125;; </span><br><span class="line">            if((nn.i &gt;=0) &amp;&amp;(nn.i &lt;N_SCALE) &amp;&amp;(nn.j &gt;=0) &amp;&amp;(nn.j&lt;N_SCALE) </span><br><span class="line">            &amp;&amp;(gc-&gt;cell[nn.i][nn.j].type != CELL_WALL) &amp;&amp;!IsNodeExistInClose(graph-&gt;close, nn.i, nn.j))&#123; </span><br><span class="line">                std::multiset&lt;ANODE, compare&gt;::iterator it; </span><br><span class="line">                it = find(graph-&gt;open.begin(), graph-&gt;open.end(), nn); </span><br><span class="line">                if(it ==graph-&gt;open.end())&#123;  /*nn不在open列表*/ </span><br><span class="line">                    nn.g = cur_node.g + 1; </span><br><span class="line">                    //将g始终赋值为可得到BFS算法的效果 </span><br><span class="line">                    nn.h =ManhattanDistance(nn, graph-&gt;target); </span><br><span class="line">                    nn.prev_i = cur_node.i; nn.prev_j = cur_node.j; </span><br><span class="line">                    graph-&gt;open.insert(nn);gc-&gt;cell[nn.i][nn.j].processed = true; </span><br><span class="line">                &#125; else &#123; /*nn在open列表中*/ </span><br><span class="line">                    if((cur_node.g + 1.0) &lt;it-&gt;g) &#123; </span><br><span class="line">                        it-&gt;g =cur_node.g + 1.0; </span><br><span class="line">                        it-&gt;prev_i = cur_node.i; it-&gt;prev_j = cur_node.j; </span><br><span class="line">                    &#125; </span><br><span class="line">                &#125; </span><br><span class="line">            &#125; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixinpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">大数据</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">算法的乐趣</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RDD</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">游戏编程</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/06/寻路算法/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/03/06/证件信息智能识别与检测/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">证件信息智能识别与检测</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  <!-- ������City�氲װ���� -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNjcyNS8xMzI2MA==">
+<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+</script>
+<noscript>Ϊ����ʹ�����������۹����뼤��JavaScript</noscript>
+</div>
+<!-- City�氲װ��������� -->
+  
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://yoursite.com/2019/03/06/寻路算法/", 
+    sourceId: "寻路算法",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -239,9 +427,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
