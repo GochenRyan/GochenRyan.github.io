@@ -13,6 +13,8 @@ install:
 build_script:
   - hexo generate
 
+build: off
+
 artifacts:
   - path: public
 
