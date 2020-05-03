@@ -16,7 +16,7 @@ tags:
 
 网上已经解释的很详细了，这里不过多展开。从左到右依次是MVC、MVP、MVVM的图示（展示的为较常见的设计，仅做对比，不同的应用场景有不同的变种）：
 
-![20200502203748-未命名文件.png](https://raw.githubusercontent.com/GochenRyan/ImgHost/master/img/20200502203748-%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png)
+![mvvm_1.png](/img/mvvm/compare.png)
 
 ### MVC
 
@@ -53,7 +53,7 @@ MVVM适合游戏客户端UI界面的开发，是界面**组件化开发**的最�
 大概的设计如图：
 
 
-![20200503004643-未命名文件 &#40;1&#41;.png](https://raw.githubusercontent.com/GochenRyan/ImgHost/master/img/20200503004643-%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20&#40;1&#41;.png)
+![mvvm_2.png](/img/mvvm/mymvvm.png)
 
 开发一个较简单的界面时，可能只有viewmodel、ctrl、\_\_int\_\_三个文件，因为复用了**数据更新框架**（负责维护客户端常用基本数据的一个更新框架）的data和通用的**tools组件**（可复用的viewmodel组件）。
 
