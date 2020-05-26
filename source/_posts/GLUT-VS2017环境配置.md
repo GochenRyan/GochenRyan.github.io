@@ -1,5 +1,6 @@
 ---
 title: GLUT+VS2017环境配置
+id: 4
 date: 2018-08-05 17:15:05
 tags:
     - OpenGL

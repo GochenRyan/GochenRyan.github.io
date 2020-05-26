@@ -98,7 +98,31 @@ gitment_oauth:
   client_secret: ''       #client secret
 
 #6、来必力
-livere: MTAyMC8zNjcyNS8xMzI2MA
+livere: false
+
+#7、Valine https://valine.js.org
+valine:
+  appid: D57h5eGDWXy4mGtftzuCPcmL-gzGzoHsz #Leancloud应用的appId
+  appkey: 8V26xOJtrX3uoJbXKLT7rYRD #Leancloud应用的appKey
+  verify: false #验证码
+  notify: true #评论回复提醒
+  placeholder: 有话要说？ #评论框占位符
+  visitor: true  #阅读量统计
+
+# leancloud visitors
+leancloud_visitors:
+  enable: true
+# #添加一下js插件的 CDN地址
+# js_cdn:
+#   jquery: https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js
+#   av : //cdn1.lncld.net/static/js/2.5.0/av-min.js
+# # 评论及阅读数都用到
+# leancloud:
+  
+
+# 是否开启访问量统计功能(不蒜子)
+busuanzi:
+ enable: false
 
 # 样式定制 - 一般不需要修改，除非有很强的定制欲望…
 style:

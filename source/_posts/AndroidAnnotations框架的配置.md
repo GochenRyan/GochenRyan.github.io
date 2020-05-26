@@ -1,5 +1,6 @@
 ---
 title: AndroidAnnotations框架的配置
+id: 5
 date: 2018-05-23 21:09:45
 tags:
     - Android
