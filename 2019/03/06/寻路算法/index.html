@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="主要介绍了Dijkstra、BFS和A*三种算法。">
+<meta name="keywords" content="算法的乐趣,游戏编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="寻路算法">
+<meta property="og:url" content="http://yoursite.com/2019/03/06/寻路算法/index.html">
+<meta property="og:site_name" content="GochenRyan的博客">
+<meta property="og:description" content="主要介绍了Dijkstra、BFS和A*三种算法。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-26T17:48:17.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="寻路算法">
+<meta name="twitter:description" content="主要介绍了Dijkstra、BFS和A*三种算法。">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/06/寻路算法/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>寻路算法 | GochenRyan的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GochenRyan的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">往者不可谏，来者犹可追。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/寻路算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gochen Ryan">
+      <meta itemprop="description" content="普通程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GochenRyan的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          寻路算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-06 15:26:49" itemprop="dateCreated datePublished" datetime="2019-03-06T15:26:49+08:00">2019-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-27 01:48:17" itemprop="dateModified" datetime="2020-05-27T01:48:17+08:00">2020-05-27</time>
+              </span>
+
+          
+            <span id="/2019/03/06/寻路算法/" class="post-meta-item leancloud_visitors" data-flag-title="寻路算法" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/03/06/寻路算法/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/03/06/寻路算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>主要介绍了Dijkstra、BFS和A*三种算法。</p>
+<a id="more"></a>
+<h2 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h2><p>Dijkstra算法是典型的单源最短路径算法，适用于求解没有负权边的带权有向图的单源最短路径问题，所谓的单源可以理解为一个出发点，Dijkstra算法可以求得从这个出发点到图中其他顶点的最短路径。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ol>
+<li>dist[]：存放当前找到的从s到每个顶点vi的最短路径；</li>
+<li>W(s,m)：连接s和m的边的权；</li>
+<li>集合S、集合Q：集合S存放所有已知dist[vi]都已经是最短路径的顶点，其余的顶点都在集合Q中；</li>
+<li>prev[]：存放当前节点在最短路径上的前驱节点。</li>
+</ol>
+<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><ol>
+<li>初始化集合S和Q，设起点dist[s]=0，并将其他顶点的dist[vi]设为无穷大；</li>
+<li>从Q中选择一个dist[u]值最小的顶点u，将u从集合Q中移到集合S中；</li>
+<li>以u为当前顶点，修改Q中与u相连的顶点的距离。修改的方法是：对于集合Q中每一个与u相连的顶点vi，如果从起点s经u到的vi距离dist[u] + W(u, vi)的值小于当前vi的距离dist[vi]，则将dist[vi]的值修正为dist[u] + W(u, vi)的值，同时将顶点vi的前驱顶点记为u；</li>
+<li>重复步骤(2)和(3)，直到集合Q为空。第(3)步记录顶点的前驱顶点操作不是算法的必需内容，记录前驱顶点的目的仅仅是为了能够回溯每条最短路径的顶点连接关系。</li>
+</ol>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">void Dijkstra(DIJKSTRA_GRAPH graph)&#123;</span><br><span class="line">    std::set&lt;int&gt; S,Q;</span><br><span class="line">    for(int i = 0; i &lt; graph-&gt;node.size(); i++) &#123;</span><br><span class="line">        graph-&gt;dist[i] = graph-&gt;[graph-&gt;source][i];</span><br><span class="line">        graph-&gt;prev[i] = (graph-&gt;dist[i] == MAX_DISTANCE)? -1:graph-&gt;source;</span><br><span class="line">        Q.insert(i);</span><br><span class="line">    &#125;</span><br><span class="line">    graph-&gt;dist[graph-&gt;source] = 0;</span><br><span class="line">    while(!Q.empty())&#123;</span><br><span class="line">        int u = Extract_Min(graph,Q);</span><br><span class="line">        S.insert(u);</span><br><span class="line">        for(auto it = Q.begin(); it != Q.end(); ++it) &#123; </span><br><span class="line">             int v = it;</span><br><span class="line">             if((graph-&gt;adj[u][v] &lt;MAX_DISTANCE)&amp;&amp;(graph-&gt;dist[u] + graph-&gt;adj[u][v] &lt;graph-&gt;dist[v]))&#123; //小于MAX_DISTANCE表示有边相连 </span><br><span class="line">                graph-&gt;dist[v] = graph-&gt;dist[u] + graph-&gt;adj[u][v]; //更新</span><br><span class="line">                distgraph-&gt;prev[v] = u; //记录前驱顶点 </span><br><span class="line">             &#125; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="启发式搜索算法"><a href="#启发式搜索算法" class="headerlink" title="启发式搜索算法"></a>启发式搜索算法</h2><h3 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h3><p>BFS算法是在广度优先搜索算法的基础上加入评估函数，通过评估函数剪枝，避免一些明显不可能得到最短路径的搜索动作。在没有障碍物的地图上，其算法效果接近A*算法，总体上远远优于Dijkstra算法。但是BFS算法因为评价函数只考虑位置方向信息，基于贪心策略，总是试图向最接近目标点的方向移动，使得这种算法在有障碍物的地图上表现不佳，很多情况下得到的路径都不是最短路径。</p>
+<h4 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h4><p>启发函数：即评估函数，评估函数的作用就是根据起点和终点的位置和距离信息给出下一步需要搜索各个位置的评估值，启发式搜索算法可以有以下三种方式利用这些评估值：  </p>
+<ol>
+<li>根据评估结果，每次选择评估值最高的位置开始下一步搜索，避免盲目的穷举搜索；  </li>
+<li>决定搜索的顺序，按照评估值的高低排序，从评估值最高的位置开始下一步搜索（如果评估值高的位置没找到结果，则评估值较低的位置也能被顺序处理到）；  </li>
+<li>剪枝，去除一些明显不可能得到最优结果的搜索位置，提高搜索效率。</li>
+</ol>
+<h3 id="A"><a href="#A" class="headerlink" title="A*"></a>A*</h3><p>A*算法既能像Dijkstra算法那样搜索到最短路径，又能像BFS算法一样使用启发函数进行启发式搜索，是目前各种寻径算法中最受欢迎的选择。即使在有障碍物的情况下，选择合适的距离评估函数，A*算法基本上都能搜索到最短路径。<br>A*算法的启发函数采用的计算公式是：F(n) = G(h) + H(n)。F(n)就是A*算法对每个点的评估函数。</p>
+<h4 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h4><ol>
+<li>G(n)：从起点到当前节点n的实际代价，也就是从起点到当前节点的移动距离。相邻的两个点的移动距离是1，当前点距离起点越远，这个值就越大。如果我们设G(n)的值总是0，则算法的效果类似于BFS算法；</li>
+<li>H(n)：从当前节点n到终点的距离评估值。这是一个从当前节点到终点的移动距离的估计值。如果设H(n)的值总是0，则算法可退化得到类似Dijkstra算法的效果；</li>
+<li>OPEN表：存放当前已经被发现但是还没有搜索过的节点；</li>
+<li>CLOSE表：存放已经搜索过的节点；</li>
+<li>距离评估函数：曼哈顿距离、欧氏几何平面距离和切比雪夫距离；</li>
+<li>曼哈顿距离：两个点在各个坐标轴上的距离差值的几何；</li>
+<li>欧式几何平面距离：n维空间中两个点之间的真实距离（几何距离）；</li>
+<li>切比雪夫距离：向量中各个分量的差的绝对值中最大的那一个。</li>
+</ol>
+<h4 id="算法步骤-1"><a href="#算法步骤-1" class="headerlink" title="算法步骤"></a>算法步骤</h4><ol>
+<li>初始化OPEN表和CLOSE表，将起点加入到OPEN表中；</li>
+<li>从OPEN表中取出当前F(n)值最小的节点作为当前搜索节点U，将U节点加入到CLOSE表中；</li>
+<li>对于每一个与U可连通的节点（障碍物不相通）V，考察V：如果V已经在CLOSE表中，则对该节点不做任何处理；如果V不在OPEN表中，则计算F(V)，将V的前驱节点设置为U并将V加入到OPEN表中；如果V在OPEN表中，比较G(U) + 1与G(V)的大小（H(V)的值是不变的），如果G(U) + 1&lt;G(V)，则令G(V) = G(U) + 1，同时将V的前驱节点设置为U。重复步骤(2)和(3)，直到第(2)步得到的搜索节点U就是终点为止，此时算法结束。</li>
+</ol>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">void AStar(ASTAR_GRAPH graph, GRID_CELL gc) &#123; </span><br><span class="line">    //步骤(1) </span><br><span class="line">    graph-&gt;open.insert(graph-&gt;source); </span><br><span class="line">    //步骤(2) </span><br><span class="line">    ANODE cur_node; </span><br><span class="line">    while(ExtractMiniFromOpen(graph, cur_node)) &#123; </span><br><span class="line">        graph-&gt;close.push_back(cur_node); </span><br><span class="line">        if(cur_node== graph-&gt;target) &#123; </span><br><span class="line">            UpdateCellInfo(graph, gc); </span><br><span class="line">            break; </span><br><span class="line">        &#125; </span><br><span class="line">        //步骤(3) </span><br><span class="line">        for(int d = 0; d &lt;COUNT_OF(dir); d++) &#123; </span><br><span class="line">            ANODEnn = &#123;cur_node.i + dir[d].y, cur_node.j + dir[d].x, 0, 0&#125;; </span><br><span class="line">            if((nn.i &gt;=0) &amp;&amp;(nn.i &lt;N_SCALE) &amp;&amp;(nn.j &gt;=0) &amp;&amp;(nn.j&lt;N_SCALE) </span><br><span class="line">            &amp;&amp;(gc-&gt;cell[nn.i][nn.j].type != CELL_WALL) &amp;&amp;!IsNodeExistInClose(graph-&gt;close, nn.i, nn.j))&#123; </span><br><span class="line">                std::multiset&lt;ANODE, compare&gt;::iterator it; </span><br><span class="line">                it = find(graph-&gt;open.begin(), graph-&gt;open.end(), nn); </span><br><span class="line">                if(it ==graph-&gt;open.end())&#123;  /*nn不在open列表*/ </span><br><span class="line">                    nn.g = cur_node.g + 1; </span><br><span class="line">                    //将g始终赋值为可得到BFS算法的效果 </span><br><span class="line">                    nn.h =ManhattanDistance(nn, graph-&gt;target); </span><br><span class="line">                    nn.prev_i = cur_node.i; nn.prev_j = cur_node.j; </span><br><span class="line">                    graph-&gt;open.insert(nn);gc-&gt;cell[nn.i][nn.j].processed = true; </span><br><span class="line">                &#125; else &#123; /*nn在open列表中*/ </span><br><span class="line">                    if((cur_node.g + 1.0) &lt;it-&gt;g) &#123; </span><br><span class="line">                        it-&gt;g =cur_node.g + 1.0; </span><br><span class="line">                        it-&gt;prev_i = cur_node.i; it-&gt;prev_j = cur_node.j; </span><br><span class="line">                    &#125; </span><br><span class="line">                &#125; </span><br><span class="line">            &#125; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/算法的乐趣/" rel="tag"># 算法的乐趣</a>
+              <a href="/tags/游戏编程/" rel="tag"># 游戏编程</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/19/颜色空间/" rel="prev" title="颜色空间">
+      <i class="fa fa-chevron-left"></i> 颜色空间
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/03/【游戏客户端】MVVM/" rel="next" title="【游戏客户端】MVVM">
+      【游戏客户端】MVVM <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dijkstra"><span class="nav-number">1.</span> <span class="nav-text">Dijkstra</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法步骤"><span class="nav-number">1.2.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.3.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启发式搜索算法"><span class="nav-number">2.</span> <span class="nav-text">启发式搜索算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFS"><span class="nav-number">2.1.</span> <span class="nav-text">BFS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">概念</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A"><span class="nav-number">2.2.</span> <span class="nav-text">A*</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念-2"><span class="nav-number">2.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法步骤-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">算法步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Gochen Ryan</p>
+  <div class="site-description" itemprop="description">普通程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/GochenRyan" title="GitHub → https://github.com/GochenRyan" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:rangaocheng@outlook.com" title="E-Mail → mailto:rangaocheng@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/ran-gao-cheng" title="ZhiHu → https://www.zhihu.com/people/ran-gao-cheng" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>ZhiHu</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gochen Ryan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"D57h5eGDWXy4mGtftzuCPcmL-gzGzoHsz","app_key":"8V26xOJtrX3uoJbXKLT7rYRD","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'D57h5eGDWXy4mGtftzuCPcmL-gzGzoHsz',
+      appKey     : '8V26xOJtrX3uoJbXKLT7rYRD',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":100,"height":250},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

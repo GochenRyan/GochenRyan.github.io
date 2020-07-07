@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="写在前面最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
+<meta name="keywords" content="游戏客户端,性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【游戏客户端】合批">
+<meta property="og:url" content="http://yoursite.com/2020/05/26/【游戏客户端】合批/index.html">
+<meta property="og:site_name" content="GochenRyan的博客">
+<meta property="og:description" content="写在前面最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/img/Batching/Draw%20Call1.png">
+<meta property="og:image" content="http://yoursite.com/img/Batching/Draw%20Call2.png">
+<meta property="og:image" content="http://yoursite.com/img/Batching/Tile_set.png">
+<meta property="og:updated_time" content="2020-05-26T17:48:34.167Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【游戏客户端】合批">
+<meta name="twitter:description" content="写在前面最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
+<meta name="twitter:image" content="http://yoursite.com/img/Batching/Draw%20Call1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/26/【游戏客户端】合批/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【游戏客户端】合批 | GochenRyan的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GochenRyan的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">往者不可谏，来者犹可追。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/【游戏客户端】合批/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gochen Ryan">
+      <meta itemprop="description" content="普通程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GochenRyan的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【游戏客户端】合批
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-26 22:07:07" itemprop="dateCreated datePublished" datetime="2020-05-26T22:07:07+08:00">2020-05-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-27 01:48:34" itemprop="dateModified" datetime="2020-05-27T01:48:34+08:00">2020-05-27</time>
+              </span>
+
+          
+            <span id="/2020/05/26/【游戏客户端】合批/" class="post-meta-item leancloud_visitors" data-flag-title="【游戏客户端】合批" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/05/26/【游戏客户端】合批/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/26/【游戏客户端】合批/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲<strong>合批</strong>。<br><strong>合批</strong>对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊<strong>Draw Call</strong>…</p>
+<a id="more"></a>
+<h2 id="Draw-Call"><a href="#Draw-Call" class="headerlink" title="Draw Call"></a>Draw Call</h2><p>Draw Call是什么？Draw Call实际上就是一个命令，CPU通过调用这个命令来通知GPU进行渲染。对于OpenGL来说，Draw Call就是glDrawArrays、glDrawElements等函数的调用。那么，DrawCall是如何影响性能的呢？作为拷贝忍者卡卡西，这里引用<a href="https://zhuanlan.zhihu.com/p/68530142" target="_blank" rel="noopener">一滴血的记忆的专栏文章</a>  </p>
+<blockquote>
+<p>当每次调用API的时候，背后其实都需要经历这么几个阶段：<strong>application-&gt;runtime-&gt;driver-&gt;gpu</strong>。每一步都存在性能消耗。前三步是在CPU中进行的，而最后一步的gpu消耗主要是在vertex shader、fragment shader、framebuffer中的各种操作(blend、test)。</p>
+</blockquote>
+<p><img src="/img/Batching/Draw Call1.png" alt="DrawCall1"></p>
+<blockquote>
+<p>每调用1次渲染api并不是直接经过以上的所有组件通知gpu执行我们的调用。<strong>runtime</strong>会将api调用转换为设备无关的”命令”(这样才能保证在任何设备硬件上兼容，其实也就是做到对不同的硬件架构做到透明)，然后将命令缓存到<strong>commandbuffer</strong>中去。而命令从runtime到<strong>driver</strong>这个过程中，cpu会发生从<strong>用户模式</strong>到<strong>内核模式</strong>的转换。这个操作是一件非常耗时的工作。所以说如果每次api调用都直接发送命令到driver，那将是非常巨大的性能消耗。所以在不是必须要马上提交给GPU绘制的命令，我们可以先缓存在commandbuffer中，等到需要时一次性提交，优化效率。</p>
+</blockquote>
+<p><img src="/img/Batching/Draw Call2.png" alt="DrawCall2"></p>
+<blockquote>
+<p>当然这里边还涉及到<strong>渲染状态</strong>(texture、shader、material各种参数)的影响，如果渲染状态改变了，那么要使用之前渲染状态进行渲染的所有drawcall命令必须全部被执行了。也就是说之前缓冲在commandbuffer中的所有drawcall命令必须刷新。这其实会发生一次从<strong>用户模式</strong>到<strong>内核模式</strong>的切换。<br>从以上两点来看每次渲染状态的改变导致cpu消耗增加其实包含着两个方面的性能消耗：</p>
+<ol>
+<li>runtime需要将api转换成设备无关的”命令”的时间消耗;</li>
+<li>状态切换导致的从用户模式到内核模式的模式切换的时间消耗。<br>同样的对于优化batch，减少drawcall也有两条路可走：</li>
+<li>对driver进行优化，使其在转换上降低开销。目前的最新api接口，比如vulkan，metal其实在这方面已经做了很大的改进，大大降低了模式转换上的开销。</li>
+<li>通过合批降低drawcall，这也是我们唯一能做的手段。</li>
+</ol>
+</blockquote>
+<p>Draw Call消耗很少，渲染状态改变消耗大，毕竟状态改变的情况下会发生用户模式到内核模式的转换。一般情况下Draw Call数量等于渲染状态次数，所以<strong>合批</strong>（<strong>Draw Call Batching</strong>）的重要性不言而喻。</p>
+<h2 id="cocos2dx中的合批"><a href="#cocos2dx中的合批" class="headerlink" title="cocos2dx中的合批"></a>cocos2dx中的合批</h2><h3 id="Auto-Batching"><a href="#Auto-Batching" class="headerlink" title="Auto Batching"></a>Auto Batching</h3><p>cocos2dx 3.0提供了一种叫做<strong>自动批绘制</strong>（<strong>Auto Batching</strong>)的技术，对多个相邻的<strong>RenderCommand</strong>，如果它们使用相同的<strong>纹理</strong>、相同的<strong>blendfunc设置</strong>、相同的<strong>Shader程序</strong>，则只会调用一次OpenGL ES绘制命令。<br>在主线程遍历完<strong>UI树</strong>，并将每个UI元素的绘制发送到<strong>绘制栈</strong>上，绘制线程开始执行全部绘制命令。此时，Renderer需现对RenderCommand进行排序，然后再按照排序后的顺序分别执行绘制命令。</p>
+<ul>
+<li>当第一次遇到第一个QuadCommand时不会立即绘制，而是将它放入一个数组中缓存起来，然后继续迭代后面的RenderCommand;</li>
+<li>如果之后遇到的还是QuadCommand，并且它们有相同的<strong>materialID</strong>(通过对着色器名称、纹理名称、混合方程等相关参数进行Hash计算)，则继续添加到缓存数组；</li>
+<li>如果遇到的RenderCommand类型不是QUAD_COMMAND或者materialID不同，则先绘制之前缓存的QuadCommand数组。</li>
+</ul>
+<p>需要注意的是，所有顶点数组使用的是同一个VBO对象，它能容纳的最大Quad数量是<strong>10922</strong>(65536/6)。所以，当Quad的数量大于这个值的时候，将会立即执行前面的命令。</p>
+<h3 id="SpriteBatchNode"><a href="#SpriteBatchNode" class="headerlink" title="SpriteBatchNode"></a>SpriteBatchNode</h3><p>SpriteBatchNode比较古老，我们只需要将要绘制的Sprite添加到一个SpriteBatchNode下，引擎会自动帮我们实现批绘制。通常情况下，应用程序中使用的精灵都应该使用Sprite的自动批绘制。</p>
+<h3 id="合并与剔除"><a href="#合并与剔除" class="headerlink" title="合并与剔除"></a>合并与剔除</h3><p>对于一些可以批渲染的对象，会因为中间插入了其它对象的渲染而打断批渲染，可以通过一个<strong>画布对象</strong>（Google不到，应该是内部引擎做了扩展）将对象的渲染逻辑抽离出来由画布管理，避免打断批渲染，从而减少Draw Call。<br>这里有两种策略。一种是<strong>合并</strong>，将需要批渲染的对象的渲染逻辑抽离出来；另一种是<strong>剔除</strong>，将打断批渲染的对象的渲染逻辑抽离出来。</p>
+<h2 id="Unity中的合批"><a href="#Unity中的合批" class="headerlink" title="Unity中的合批"></a>Unity中的合批</h2><p>Unity提供了三种批次合并的方法，分别是<strong>Static Batching</strong>，<strong>GPU Instancing</strong>和<strong>Dynamic Batching</strong>（简要介绍一下，之后补坑）</p>
+<h3 id="Static-Batching"><a href="#Static-Batching" class="headerlink" title="Static Batching"></a>Static Batching</h3><p>Static Batching，将静态物体集合成一个大号vbo提交，但是只对要渲染的物体提交其IBO。</p>
+<h3 id="Dynamic-Batching"><a href="#Dynamic-Batching" class="headerlink" title="Dynamic Batching"></a>Dynamic Batching</h3><p>Dynamic Batching，将物体动态组装成一个个稍大的vbo+ibo提交。这个过程不要求使用同样的mesh，但是也一样要求同样的材质。</p>
+<h3 id="GPU-Instancing"><a href="#GPU-Instancing" class="headerlink" title="GPU Instancing"></a>GPU Instancing</h3><p>GPU Instancing，只提交一个物体的mesh，但是将多个使用同种mesh和material的物体的差异化信息（包括位置，缩放，旋转，shader参数等（shader参数不包括纹理））组合成一个PIO提交。在GPU侧，通过读取每个物体的PIO数据，对同一个mesh进行各种变换后绘制。</p>
+<h2 id="合图"><a href="#合图" class="headerlink" title="合图"></a>合图</h2><p>合图，也就是合成<strong>图集</strong>（Texture atlas）。引用wiki中的相关介绍:</p>
+<blockquote>
+<p>In <a href="https://en.wikipedia.org/wiki/Computer_graphics" title="Computer graphics" target="_blank" rel="noopener">computer graphics</a>, a <strong>texture atlas</strong> (also called a <strong>sprite sheet</strong> or an <strong>image sprite</strong>) is an image containing multiple smaller images, usually packed together to reduce overall dimensions.<a href="https://en.wikipedia.org/wiki/Texture_atlas#cite_note-nvidia-1" target="_blank" rel="noopener">[1]</a> An atlas can consist of uniformly-sized images or images of varying dimensions.<a href="https://en.wikipedia.org/wiki/Texture_atlas#cite_note-nvidia-1" target="_blank" rel="noopener">[1]</a> A sub-image is drawn using custom <a href="https://en.wikipedia.org/wiki/Texture_coordinates" title="Texture coordinates" target="_blank" rel="noopener">texture coordinates</a> to pick it out of the atlas.</p>
+</blockquote>
+<p><img src="/img/Batching/Tile_set.png" alt="Tile_set"></p>
+<p>简单来说，图集是包含许多小图的一张大图，它会被GPU视为一个单元。这样，通过增加内存位置后，可以减少渲染状态切换的开销。合图后，CPU在传送资源信息给GPU时，只需要传这张大图就可以了，GPU可以在这张大图中的不同区域进行采样。<br>当然，图集太大的话，加载这张大图就会出现问题，这就涉及到图集的整理策略。不同的项目有不同的策略，这里不做展开，贴一篇知乎专栏文章<a href="https://zhuanlan.zhihu.com/p/90494264" target="_blank" rel="noopener">【unity游戏开发】图集整理策略</a>。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/游戏客户端/" rel="tag"># 游戏客户端</a>
+              <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/18/兴趣的代价/" rel="prev" title="兴趣的代价">
+      <i class="fa fa-chevron-left"></i> 兴趣的代价
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/06/【游戏客户端】事件分发（1）/" rel="next" title="【游戏客户端】事件分发（1）">
+      【游戏客户端】事件分发（1） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Draw-Call"><span class="nav-number">2.</span> <span class="nav-text">Draw Call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cocos2dx中的合批"><span class="nav-number">3.</span> <span class="nav-text">cocos2dx中的合批</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Auto-Batching"><span class="nav-number">3.1.</span> <span class="nav-text">Auto Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpriteBatchNode"><span class="nav-number">3.2.</span> <span class="nav-text">SpriteBatchNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并与剔除"><span class="nav-number">3.3.</span> <span class="nav-text">合并与剔除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity中的合批"><span class="nav-number">4.</span> <span class="nav-text">Unity中的合批</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-Batching"><span class="nav-number">4.1.</span> <span class="nav-text">Static Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Batching"><span class="nav-number">4.2.</span> <span class="nav-text">Dynamic Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU-Instancing"><span class="nav-number">4.3.</span> <span class="nav-text">GPU Instancing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合图"><span class="nav-number">5.</span> <span class="nav-text">合图</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Gochen Ryan</p>
+  <div class="site-description" itemprop="description">普通程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/GochenRyan" title="GitHub → https://github.com/GochenRyan" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:rangaocheng@outlook.com" title="E-Mail → mailto:rangaocheng@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/ran-gao-cheng" title="ZhiHu → https://www.zhihu.com/people/ran-gao-cheng" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>ZhiHu</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gochen Ryan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"D57h5eGDWXy4mGtftzuCPcmL-gzGzoHsz","app_key":"8V26xOJtrX3uoJbXKLT7rYRD","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'D57h5eGDWXy4mGtftzuCPcmL-gzGzoHsz',
+      appKey     : '8V26xOJtrX3uoJbXKLT7rYRD',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":100,"height":250},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>
