@@ -20,24 +20,30 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="写在前面最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
-<meta name="keywords" content="游戏客户端,性能优化">
+  <meta name="description" content="写在前面先推一下大阳哥的这篇文章。notion！记笔记的神！说说这篇文章吧，刚开始看《Python源码剖析》，这系列（如果不鸽的话）文章算是笔记与扩展吧。与书中所用python2.5不同，我用的是python3.8(害，主要是不想看python2😑)。玩了一天游戏，写完这篇文章也算是有个心里安慰😋。">
+<meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【游戏客户端】合批">
-<meta property="og:url" content="http://yoursite.com/2020/05/26/【游戏客户端】合批/index.html">
+<meta property="og:title" content="【Python源码剖析】编译Python">
+<meta property="og:url" content="http://yoursite.com/2020/07/12/【Python源码剖析】编译Python/index.html">
 <meta property="og:site_name" content="GochenRyan的博客">
-<meta property="og:description" content="写在前面最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
+<meta property="og:description" content="写在前面先推一下大阳哥的这篇文章。notion！记笔记的神！说说这篇文章吧，刚开始看《Python源码剖析》，这系列（如果不鸽的话）文章算是笔记与扩展吧。与书中所用python2.5不同，我用的是python3.8(害，主要是不想看python2😑)。玩了一天游戏，写完这篇文章也算是有个心里安慰😋。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/img/Batching/Draw%20Call1.png">
-<meta property="og:image" content="http://yoursite.com/img/Batching/Draw%20Call2.png">
-<meta property="og:image" content="http://yoursite.com/img/Batching/Tile_set.png">
-<meta property="og:updated_time" content="2020-07-07T04:27:00.638Z">
+<meta property="og:image" content="http://yoursite.com/img/Python/python.png">
+<meta property="og:image" content="http://yoursite.com/img/Python/Untitled.png">
+<meta property="og:image" content="http://yoursite.com/img/Python/Untitled1.png">
+<meta property="og:image" content="http://yoursite.com/img/Python/Untitled2.png">
+<meta property="og:image" content="http://yoursite.com/img/Python/Untitled3.png">
+<meta property="og:image" content="http://yoursite.com/img/Python/Untitled4.png">
+<meta property="og:image" content="http://yoursite.com/img/Python/Untitled5.png">
+<meta property="og:image" content="http://yoursite.com/img/Python/Untitled6.png">
+<meta property="og:image" content="http://yoursite.com/img/Python/Untitled7.png">
+<meta property="og:updated_time" content="2020-07-12T15:16:33.659Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【游戏客户端】合批">
-<meta name="twitter:description" content="写在前面最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
-<meta name="twitter:image" content="http://yoursite.com/img/Batching/Draw%20Call1.png">
+<meta name="twitter:title" content="【Python源码剖析】编译Python">
+<meta name="twitter:description" content="写在前面先推一下大阳哥的这篇文章。notion！记笔记的神！说说这篇文章吧，刚开始看《Python源码剖析》，这系列（如果不鸽的话）文章算是笔记与扩展吧。与书中所用python2.5不同，我用的是python3.8(害，主要是不想看python2😑)。玩了一天游戏，写完这篇文章也算是有个心里安慰😋。">
+<meta name="twitter:image" content="http://yoursite.com/img/Python/python.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/05/26/【游戏客户端】合批/">
+<link rel="canonical" href="http://yoursite.com/2020/07/12/【Python源码剖析】编译Python/">
 
 
 <script id="page-configurations">
@@ -50,7 +56,7 @@
   };
 </script>
 
-  <title>【游戏客户端】合批 | GochenRyan的博客</title>
+  <title>【Python源码剖析】编译Python | GochenRyan的博客</title>
   
 
 
@@ -171,7 +177,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/【游戏客户端】合批/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/12/【Python源码剖析】编译Python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -184,7 +190,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【游戏客户端】合批
+          【Python源码剖析】编译Python
         </h1>
 
         <div class="post-meta">
@@ -193,28 +199,22 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-05-26 22:07:07" itemprop="dateCreated datePublished" datetime="2020-05-26T22:07:07+08:00">2020-05-26</time>
+              <time title="创建时间：2020-07-12 22:42:01 / 修改时间：23:16:33" itemprop="dateCreated datePublished" datetime="2020-07-12T22:42:01+08:00">2020-07-12</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-07 12:27:00" itemprop="dateModified" datetime="2020-07-07T12:27:00+08:00">2020-07-07</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/游戏客户端/" itemprop="url" rel="index"><span itemprop="name">游戏客户端</span></a>
+                  <a href="/categories/Python源码剖析/" itemprop="url" rel="index"><span itemprop="name">Python源码剖析</span></a>
                 </span>
             </span>
 
           
-            <span id="/2020/05/26/【游戏客户端】合批/" class="post-meta-item leancloud_visitors" data-flag-title="【游戏客户端】合批" title="阅读次数">
+            <span id="/2020/07/12/【Python源码剖析】编译Python/" class="post-meta-item leancloud_visitors" data-flag-title="【Python源码剖析】编译Python" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -229,8 +229,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/05/26/【游戏客户端】合批/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/26/【游戏客户端】合批/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/07/12/【Python源码剖析】编译Python/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/12/【Python源码剖析】编译Python/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,46 +245,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲<strong>合批</strong>。<br><strong>合批</strong>对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊<strong>Draw Call</strong>…</p>
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>先推一下大阳哥的<a href="https://lmikoto.com/2020/07/12/%E4%BD%BF%E7%94%A8Notion%E5%81%9A%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%90%8E%E5%8F%B0/" target="_blank" rel="noopener">这篇文章</a>。notion！记笔记的神！说说这篇文章吧，刚开始看《Python源码剖析》，这系列（如果不鸽的话）文章算是笔记与扩展吧。与书中所用python2.5不同，我用的是python3.8(害，主要是不想看python2😑)。玩了一天游戏，写完这篇文章也算是有个心里安慰😋。</p>
 <a id="more"></a>
-<h2 id="Draw-Call"><a href="#Draw-Call" class="headerlink" title="Draw Call"></a>Draw Call</h2><p>Draw Call是什么？Draw Call实际上就是一个命令，CPU通过调用这个命令来通知GPU进行渲染。对于OpenGL来说，Draw Call就是glDrawArrays、glDrawElements等函数的调用。那么，DrawCall是如何影响性能的呢？作为拷贝忍者卡卡西，这里引用<a href="https://zhuanlan.zhihu.com/p/68530142" target="_blank" rel="noopener">一滴血的记忆的专栏文章</a>  </p>
-<blockquote>
-<p>当每次调用API的时候，背后其实都需要经历这么几个阶段：<strong>application-&gt;runtime-&gt;driver-&gt;gpu</strong>。每一步都存在性能消耗。前三步是在CPU中进行的，而最后一步的gpu消耗主要是在vertex shader、fragment shader、framebuffer中的各种操作(blend、test)。</p>
-</blockquote>
-<p><img src="/img/Batching/Draw Call1.png" alt="DrawCall1"></p>
-<blockquote>
-<p>每调用1次渲染api并不是直接经过以上的所有组件通知gpu执行我们的调用。<strong>runtime</strong>会将api调用转换为设备无关的”命令”(这样才能保证在任何设备硬件上兼容，其实也就是做到对不同的硬件架构做到透明)，然后将命令缓存到<strong>commandbuffer</strong>中去。而命令从runtime到<strong>driver</strong>这个过程中，cpu会发生从<strong>用户模式</strong>到<strong>内核模式</strong>的转换。这个操作是一件非常耗时的工作。所以说如果每次api调用都直接发送命令到driver，那将是非常巨大的性能消耗。所以在不是必须要马上提交给GPU绘制的命令，我们可以先缓存在commandbuffer中，等到需要时一次性提交，优化效率。</p>
-</blockquote>
-<p><img src="/img/Batching/Draw Call2.png" alt="DrawCall2"></p>
-<blockquote>
-<p>当然这里边还涉及到<strong>渲染状态</strong>(texture、shader、material各种参数)的影响，如果渲染状态改变了，那么要使用之前渲染状态进行渲染的所有drawcall命令必须全部被执行了。也就是说之前缓冲在commandbuffer中的所有drawcall命令必须刷新。这其实会发生一次从<strong>用户模式</strong>到<strong>内核模式</strong>的切换。<br>从以上两点来看每次渲染状态的改变导致cpu消耗增加其实包含着两个方面的性能消耗：</p>
-<ol>
-<li>runtime需要将api转换成设备无关的”命令”的时间消耗;</li>
-<li>状态切换导致的从用户模式到内核模式的模式切换的时间消耗。<br>同样的对于优化batch，减少drawcall也有两条路可走：</li>
-<li>对driver进行优化，使其在转换上降低开销。目前的最新api接口，比如vulkan，metal其实在这方面已经做了很大的改进，大大降低了模式转换上的开销。</li>
-<li>通过合批降低drawcall，这也是我们唯一能做的手段。</li>
-</ol>
-</blockquote>
-<p>Draw Call消耗很少，渲染状态改变消耗大，毕竟状态改变的情况下会发生用户模式到内核模式的转换。一般情况下Draw Call数量等于渲染状态次数，所以<strong>合批</strong>（<strong>Draw Call Batching</strong>）的重要性不言而喻。</p>
-<h2 id="cocos2dx中的合批"><a href="#cocos2dx中的合批" class="headerlink" title="cocos2dx中的合批"></a>cocos2dx中的合批</h2><h3 id="Auto-Batching"><a href="#Auto-Batching" class="headerlink" title="Auto Batching"></a>Auto Batching</h3><p>cocos2dx 3.0提供了一种叫做<strong>自动批绘制</strong>（<strong>Auto Batching</strong>)的技术，对多个相邻的<strong>RenderCommand</strong>，如果它们使用相同的<strong>纹理</strong>、相同的<strong>blendfunc设置</strong>、相同的<strong>Shader程序</strong>，则只会调用一次OpenGL ES绘制命令。<br>在主线程遍历完<strong>UI树</strong>，并将每个UI元素的绘制发送到<strong>绘制栈</strong>上，绘制线程开始执行全部绘制命令。此时，Renderer需现对RenderCommand进行排序，然后再按照排序后的顺序分别执行绘制命令。</p>
-<ul>
-<li>当第一次遇到第一个QuadCommand时不会立即绘制，而是将它放入一个数组中缓存起来，然后继续迭代后面的RenderCommand;</li>
-<li>如果之后遇到的还是QuadCommand，并且它们有相同的<strong>materialID</strong>(通过对着色器名称、纹理名称、混合方程等相关参数进行Hash计算)，则继续添加到缓存数组；</li>
-<li>如果遇到的RenderCommand类型不是QUAD_COMMAND或者materialID不同，则先绘制之前缓存的QuadCommand数组。</li>
+<h2 id="问题导读"><a href="#问题导读" class="headerlink" title="问题导读"></a>问题导读</h2><ul>
+<li style="list-style: none"><input type="checkbox"> Python总体架构是怎么样的？</li>
+<li style="list-style: none"><input type="checkbox"> python源代码是怎么组织的？</li>
+<li style="list-style: none"><input type="checkbox"> 如何修改python的源码？</li>
 </ul>
-<p>需要注意的是，所有顶点数组使用的是同一个VBO对象，它能容纳的最大Quad数量是<strong>10922</strong>(65536/6)。所以，当Quad的数量大于这个值的时候，将会立即执行前面的命令。</p>
-<h3 id="SpriteBatchNode"><a href="#SpriteBatchNode" class="headerlink" title="SpriteBatchNode"></a>SpriteBatchNode</h3><p>SpriteBatchNode比较古老，我们只需要将要绘制的Sprite添加到一个SpriteBatchNode下，引擎会自动帮我们实现批绘制。通常情况下，应用程序中使用的精灵都应该使用Sprite的自动批绘制。</p>
-<h3 id="合并与剔除"><a href="#合并与剔除" class="headerlink" title="合并与剔除"></a>合并与剔除</h3><p>对于一些可以批渲染的对象，会因为中间插入了其它对象的渲染而打断批渲染，可以通过一个<strong>画布对象</strong>（Google不到，应该是内部引擎做了扩展）将对象的渲染逻辑抽离出来由画布管理，避免打断批渲染，从而减少Draw Call。<br>这里有两种策略。一种是<strong>合并</strong>，将需要批渲染的对象的渲染逻辑抽离出来；另一种是<strong>剔除</strong>，将打断批渲染的对象的渲染逻辑抽离出来。</p>
-<h2 id="Unity中的合批"><a href="#Unity中的合批" class="headerlink" title="Unity中的合批"></a>Unity中的合批</h2><p>Unity提供了三种批次合并的方法，分别是<strong>Static Batching</strong>，<strong>GPU Instancing</strong>和<strong>Dynamic Batching</strong>（简要介绍一下，之后补坑）</p>
-<h3 id="Static-Batching"><a href="#Static-Batching" class="headerlink" title="Static Batching"></a>Static Batching</h3><p>Static Batching，将静态物体集合成一个大号vbo提交，但是只对要渲染的物体提交其IBO。</p>
-<h3 id="Dynamic-Batching"><a href="#Dynamic-Batching" class="headerlink" title="Dynamic Batching"></a>Dynamic Batching</h3><p>Dynamic Batching，将物体动态组装成一个个稍大的vbo+ibo提交。这个过程不要求使用同样的mesh，但是也一样要求同样的材质。</p>
-<h3 id="GPU-Instancing"><a href="#GPU-Instancing" class="headerlink" title="GPU Instancing"></a>GPU Instancing</h3><p>GPU Instancing，只提交一个物体的mesh，但是将多个使用同种mesh和material的物体的差异化信息（包括位置，缩放，旋转，shader参数等（shader参数不包括纹理））组合成一个PIO提交。在GPU侧，通过读取每个物体的PIO数据，对同一个mesh进行各种变换后绘制。</p>
-<h2 id="合图"><a href="#合图" class="headerlink" title="合图"></a>合图</h2><p>合图，也就是合成<strong>图集</strong>（Texture atlas）。引用wiki中的相关介绍:</p>
-<blockquote>
-<p>In <a href="https://en.wikipedia.org/wiki/Computer_graphics" title="Computer graphics" target="_blank" rel="noopener">computer graphics</a>, a <strong>texture atlas</strong> (also called a <strong>sprite sheet</strong> or an <strong>image sprite</strong>) is an image containing multiple smaller images, usually packed together to reduce overall dimensions.<a href="https://en.wikipedia.org/wiki/Texture_atlas#cite_note-nvidia-1" target="_blank" rel="noopener">[1]</a> An atlas can consist of uniformly-sized images or images of varying dimensions.<a href="https://en.wikipedia.org/wiki/Texture_atlas#cite_note-nvidia-1" target="_blank" rel="noopener">[1]</a> A sub-image is drawn using custom <a href="https://en.wikipedia.org/wiki/Texture_coordinates" title="Texture coordinates" target="_blank" rel="noopener">texture coordinates</a> to pick it out of the atlas.</p>
-</blockquote>
-<p><img src="/img/Batching/Tile_set.png" alt="Tile_set"></p>
-<p>简单来说，图集是包含许多小图的一张大图，它会被GPU视为一个单元。这样，通过增加内存位置后，可以减少渲染状态切换的开销。合图后，CPU在传送资源信息给GPU时，只需要传这张大图就可以了，GPU可以在这张大图中的不同区域进行采样。<br>当然，图集太大的话，加载这张大图就会出现问题，这就涉及到图集的整理策略。不同的项目有不同的策略，这里不做展开，贴一篇知乎专栏文章<a href="https://zhuanlan.zhihu.com/p/90494264" target="_blank" rel="noopener">【unity游戏开发】图集整理策略</a>。</p>
+<h2 id="Python总体架构"><a href="#Python总体架构" class="headerlink" title="Python总体架构"></a>Python总体架构</h2><p><img src="/img/Python/python.png" alt="Python%20150dc23d166e4cb4be1df963bb6482ee/python.png"></p>
+<ul>
+<li>File Groups<ul>
+<li>核心模块</li>
+<li>库</li>
+<li>用户自定义模块</li>
+</ul>
+</li>
+<li>Runtime Environment<ul>
+<li>对象/类型系统</li>
+<li>内存分配器</li>
+<li>运行时状态信息</li>
+</ul>
+</li>
+<li>解释器<ul>
+<li>Scanner</li>
+<li>Parser</li>
+<li>Compiler</li>
+<li>Code Evaluator</li>
+</ul>
+</li>
+</ul>
+<h2 id="Python源码组织"><a href="#Python源码组织" class="headerlink" title="Python源码组织"></a>Python源码组织</h2><p><img src="/img/Python/Untitled.png" alt="Python%20150dc23d166e4cb4be1df963bb6482ee/Untitled.png"></p>
+<ul>
+<li><strong>Include 目录</strong>：包含了 Python 提供的所有头文件，如果用户需要自己用 C 或 C++来编写自定义模块扩展 Python，那么就需要用到这里提供的头文件</li>
+<li><strong>Lib 目录</strong>：包含了 Python 自带的所有标准库，且都是用 Python 语言编写的</li>
+<li><strong>Modules 目录</strong>：包含了所有用 C 语言编写的模块，比如 math、hashlib 等。它们都是那些对速度要求非常严格的模块。而相比而言，Lib 目录下则是存放一些对速度没有太严格要求的模块，比如 os</li>
+<li><strong>Parser 目录</strong>：包含了 Python 解释器中的 Scanner 和 Parser 部分，即对 Python 源代码进行词法分析和语法分析的部分。除此以外，此目录还包含了一些有用的工具，这些工具能够根据 Python 语言的语法自动生成 Python 语言的词法和语法分析器，与 YACC 非常类似</li>
+<li><strong>Objects 目录</strong>：包含了所有 Python 的内建对象，包括整数、list、dict 等。同时，该目录还包括了 Python 在运行时需要的所有的内部使用对象的实现</li>
+<li><strong>Python 目录</strong>：包含了 Python 解释器中的 Compiler 和执行引擎部分，是 Python 运行的核心所在</li>
+<li><strong>PCbuild 目录</strong>：包含了 VS 的工程文件，研究 Python 源代码就从这里开始（这里采用 VS 2019 对 Python 进行编译）</li>
+<li><strong>Programs 目录</strong>：包含了 Python 二进制可执行文件的源码</li>
+</ul>
+<h2 id="Python源码编译"><a href="#Python源码编译" class="headerlink" title="Python源码编译"></a>Python源码编译</h2><p>下载tarball源码包</p>
+<p><a href="https://www.python.org/downloads/release/python-383/" target="_blank" rel="noopener">https://www.python.org/downloads/release/python-383/</a></p>
+<p><img src="/img/Python/Untitled1.png" alt="Python%20150dc23d166e4cb4be1df963bb6482ee/Untitled1.png"></p>
+<p>编译</p>
+<p><img src="/img/Python/Untitled2.png" alt="Python%20150dc23d166e4cb4be1df963bb6482ee/Untitled2.png"></p>
+<p><img src="/img/Python/Untitled3.png" alt="Python%20150dc23d166e4cb4be1df963bb6482ee/Untitled3.png"></p>
+<p><img src="/img/Python/Untitled4.png" alt="Python%20150dc23d166e4cb4be1df963bb6482ee/Untitled4.png"></p>
+<p><img src="/img/Python/Untitled5.png" alt="Python%20150dc23d166e4cb4be1df963bb6482ee/Untitled5.png"></p>
+<h2 id="修改Python源码"><a href="#修改Python源码" class="headerlink" title="修改Python源码"></a>修改Python源码</h2><p>Python的C API提供了一个输出对象的接口：</p>
+<p><img src="/img/Python/Untitled6.png" alt="Python%20150dc23d166e4cb4be1df963bb6482ee/Untitled6.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PyAPI_FUNC(<span class="keyword">int</span>) PyObject_Print(PyObject *, FILE *, <span class="keyword">int</span>);</span><br></pre></td></tr></table></figure>
+<p>python2中，整数有两种类型，一种是系统支持范围内的整数，为int型，一种是变长的long类型，而python3中统一为long类型，因此修改longobject.c中的long_to_decimal_string函数：</p>
+<p><img src="/img/Python/Untitled7.png" alt="Python%20150dc23d166e4cb4be1df963bb6482ee/Untitled7.png"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">long_to_decimal_string(PyObject *aa)</span><br><span class="line">&#123;</span><br><span class="line">    PyObject *str = PyUnicode_FromString(<span class="string">"I am always before long"</span>);</span><br><span class="line">    PyObject_Print(str, <span class="built_in">stdout</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line">    PyObject *v;</span><br><span class="line">    <span class="keyword">if</span> (long_to_decimal_string_internal(aa, &amp;v, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>) == <span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> v;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对Python重新编译，运行编译后的python，输入print语句：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="number">100</span>)</span><br><span class="line"><span class="string">'I am always before long'</span></span><br><span class="line"><span class="number">100</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -294,8 +310,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/游戏客户端/" rel="tag"># 游戏客户端</a>
-              <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
           </div>
 
         
@@ -304,13 +319,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/05/18/兴趣的代价/" rel="prev" title="兴趣的代价">
-      <i class="fa fa-chevron-left"></i> 兴趣的代价
+    <a href="/2020/07/06/【游戏客户端】事件分发（1）/" rel="prev" title="【游戏客户端】事件分发（1）">
+      <i class="fa fa-chevron-left"></i> 【游戏客户端】事件分发（1）
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/06/【游戏客户端】事件分发（1）/" rel="next" title="【游戏客户端】事件分发（1）">
-      【游戏客户端】事件分发（1） <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -370,7 +382,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Draw-Call"><span class="nav-number">2.</span> <span class="nav-text">Draw Call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cocos2dx中的合批"><span class="nav-number">3.</span> <span class="nav-text">cocos2dx中的合批</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Auto-Batching"><span class="nav-number">3.1.</span> <span class="nav-text">Auto Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpriteBatchNode"><span class="nav-number">3.2.</span> <span class="nav-text">SpriteBatchNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并与剔除"><span class="nav-number">3.3.</span> <span class="nav-text">合并与剔除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity中的合批"><span class="nav-number">4.</span> <span class="nav-text">Unity中的合批</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-Batching"><span class="nav-number">4.1.</span> <span class="nav-text">Static Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Batching"><span class="nav-number">4.2.</span> <span class="nav-text">Dynamic Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU-Instancing"><span class="nav-number">4.3.</span> <span class="nav-text">GPU Instancing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合图"><span class="nav-number">5.</span> <span class="nav-text">合图</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题导读"><span class="nav-number">2.</span> <span class="nav-text">问题导读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python总体架构"><span class="nav-number">3.</span> <span class="nav-text">Python总体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python源码组织"><span class="nav-number">4.</span> <span class="nav-text">Python源码组织</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python源码编译"><span class="nav-number">5.</span> <span class="nav-text">Python源码编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改Python源码"><span class="nav-number">6.</span> <span class="nav-text">修改Python源码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
