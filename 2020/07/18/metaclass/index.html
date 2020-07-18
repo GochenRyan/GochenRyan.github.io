@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="写在前面最近看《麦田里的守望者》的时候，看到里面一句话，顿了很久才回过神。它是这么说的：记住该记住的，忘记该忘记的。改变能改变的，接收不能接受的。在未阅读这篇文章前，我在朋友圈也发过类似的文字（仅自己可见）。">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="metaclass">
+<meta property="og:url" content="http://yoursite.com/2020/07/18/metaclass/index.html">
+<meta property="og:site_name" content="GochenRyan的博客">
+<meta property="og:description" content="写在前面最近看《麦田里的守望者》的时候，看到里面一句话，顿了很久才回过神。它是这么说的：记住该记住的，忘记该忘记的。改变能改变的，接收不能接受的。在未阅读这篇文章前，我在朋友圈也发过类似的文字（仅自己可见）。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/img/Python/metaclass1.png">
+<meta property="og:image" content="http://yoursite.com/img/Python/metaclass2.png">
+<meta property="og:image" content="http://yoursite.com/img/Python/metaclass3.png">
+<meta property="og:updated_time" content="2020-07-18T15:37:14.149Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="metaclass">
+<meta name="twitter:description" content="写在前面最近看《麦田里的守望者》的时候，看到里面一句话，顿了很久才回过神。它是这么说的：记住该记住的，忘记该忘记的。改变能改变的，接收不能接受的。在未阅读这篇文章前，我在朋友圈也发过类似的文字（仅自己可见）。">
+<meta name="twitter:image" content="http://yoursite.com/img/Python/metaclass1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/18/metaclass/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>metaclass | GochenRyan的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GochenRyan的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">往者不可谏，来者犹可追。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/18/metaclass/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gochen Ryan">
+      <meta itemprop="description" content="普通程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GochenRyan的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          metaclass
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-18 20:27:28 / 修改时间：23:37:14" itemprop="dateCreated datePublished" datetime="2020-07-18T20:27:28+08:00">2020-07-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/07/18/metaclass/" class="post-meta-item leancloud_visitors" data-flag-title="metaclass" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/18/metaclass/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/18/metaclass/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>最近看《麦田里的守望者》的时候，看到里面一句话，顿了很久才回过神。它是这么说的：记住该记住的，忘记该忘记的。改变能改变的，接收不能接受的。在未阅读这篇文章前，我在朋友圈也发过类似的文字（仅自己可见）。</p>
+<a id="more"></a>
+<ul>
+<li>“记住该记住的”：从什么时候开始，开始习惯在朋友圈记录的呢？大概是心情郁闷、纠结的时候，会写下一些看似有道理的话。不过时隔多日又能看见类似的文字，人生到底是个环😵；</li>
+<li>“忘记该忘记的”：有些事，时间长了，自然便忘记了。只要多睡几次好觉，坏情绪、坏思想、坏回忆在某次醒来，突然就没有了，像可控性失忆一样；</li>
+<li>“改变能改变的”：改变自己已经很难了，改变他人更是不讲道理。不要为难别人，这也是为难自己😑，好好改变自己就行；</li>
+<li>“接收不能接受的”：有些事情，意识到了，却不愿意接受，这是最折磨人的，能持续很久。你把自己沉到其他事情里去，然后发现，woc我把所有事情都搞砸了。人生的智慧在于放下，大师，我悟了。</li>
+</ul>
+<p>又想起一句话：道理我都知道，但是我就是做不到。没事，我带你看看python中的元类，看看它是怎么做到的🤣。</p>
+<h2 id="问题导读"><a href="#问题导读" class="headerlink" title="问题导读"></a>问题导读</h2><ul>
+<li style="list-style: none"><input type="checkbox"> __new__、__init__、__call__有啥联系与区别？</li>
+<li style="list-style: none"><input type="checkbox"> 元类是什么？</li>
+<li style="list-style: none"><input type="checkbox"> 原理是什么？</li>
+<li style="list-style: none"><input type="checkbox"> 怎么使用？</li>
+<li style="list-style: none"><input type="checkbox"> 怎么用metaclass实现单例？</li>
+</ul>
+<h2 id="new-、-init-、-call"><a href="#new-、-init-、-call" class="headerlink" title="__new__、__init__、__call__"></a>__new__、__init__、__call__</h2><p>先了解一下这几个前置知识点，后面会用到。</p>
+<ul>
+<li><strong>__new__</strong>: 用于创建对象并返回对象，当返回对象时会自动调用<strong>init</strong>方法进行初始化</li>
+<li><strong>__init__</strong>: 在对象创建好之后初始化变量</li>
+<li><strong>__call__</strong>: <ul>
+<li>只要一个对象对应的class对象中实现了“__call__”操作，那么这个对象就是一个可调用的对象</li>
+<li>所谓调用，就是执行对象的type所对应的class对象的tp_call操作</li>
+<li>类也是对象，元类（metaclass）是用来创建类（对象）的可调用对象，在元类里重写<strong>call</strong>，就可以在实例化对象的时候搞事情</li>
+</ul>
+</li>
+</ul>
+<h2 id="元类"><a href="#元类" class="headerlink" title="元类"></a>元类</h2><p>元类（metaclass）是用来创建类的可调用对象。对于实例对象、类和元类，可以用下面的图来描述:<br><img src="/img/Python/metaclass1.png" alt="metaclass1"></p>
+<p>那么，元类有什么用呢？看看下面的例子。  </p>
+<ul>
+<li><p>在 Python2 中，我们只需在 Foo 中加一个__metaclass__的属性:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CPrefixMetaClass</span><span class="params">(type)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, name, bases, attrs)</span>:</span></span><br><span class="line">		_attrs = ((<span class="string">"my_"</span> + name, value) <span class="keyword">for</span> name, value <span class="keyword">in</span> attrs.items())</span><br><span class="line">		_attrs = dict((name, value) <span class="keyword">for</span> name, value <span class="keyword">in</span> _attrs)</span><br><span class="line">		<span class="keyword">return</span> type.__new__(cls, name, bases, _attrs)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CTest</span><span class="params">(object)</span>:</span></span><br><span class="line">	__metaclass__ = CPrefixMetaClass</span><br><span class="line">	name = <span class="string">"test"</span></span><br><span class="line"></span><br><span class="line">test = CTest()</span><br><span class="line"><span class="keyword">print</span> test.my_name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 Python3 中，这样做:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CPrefixMetaClass</span><span class="params">(type)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, name, bases, attrs)</span>:</span></span><br><span class="line">		_attrs = ((<span class="string">"my_"</span> + name, value) <span class="keyword">for</span> name, value <span class="keyword">in</span> attrs.items())</span><br><span class="line">		_attrs = dict((name, value) <span class="keyword">for</span> name, value <span class="keyword">in</span> _attrs)</span><br><span class="line">		<span class="keyword">return</span> type.__new__(cls, name, bases, _attrs)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CTest</span><span class="params">(metaclass=CPrefixMetaClass)</span>:</span></span><br><span class="line">	name = <span class="string">"test"</span></span><br><span class="line"></span><br><span class="line">test = CTest()</span><br><span class="line">print(test.my_name)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">F:\PyProject\untitled\venv\Scripts\python.exe F:/PyProject/untitled/metaclass.py</span><br><span class="line">test</span><br></pre></td></tr></table></figure></p>
+<p>CPrefixMetaClass继承type，这是因为CPrefixMetaClass是用来创建类的__new__ 是在 __init__ 之前被调用的特殊方法，它用来创建对象并返回创建后的对象，对它的参数解释如下：</p>
+<ul>
+<li>cls：当前准备创建的类</li>
+<li>name：类的名字</li>
+<li>bases：类的父类集合</li>
+<li>attrs：类的属性和方法，是一个字典</li>
+</ul>
+<p>可以直接使用type来动态创建类，不过在项目中没怎么用到，这里提及一下。感兴趣的可以搜一下，很简单。</p>
+<h2 id="使用元类来创建单例"><a href="#使用元类来创建单例" class="headerlink" title="使用元类来创建单例"></a>使用元类来创建单例</h2><p>元类定义<strong>call</strong>方法，可以抢在类运行 __new__ 和 __init__ 之前执行，也就是创建单例模式的前提，在类实例化前拦截掉。type的<strong>call</strong>实际上是调用了type的<strong>new</strong>和<strong>init</strong>。<br><img src="/img/Python/metaclass2.png" alt="metaclass2">  </p>
+<h3 id="单例的实现代码"><a href="#单例的实现代码" class="headerlink" title="单例的实现代码"></a>单例的实现代码</h3><p>singleton.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line">g_lSingletonCls = []</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Reset</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="keyword">global</span> g_lSingletonCls</span><br><span class="line">	<span class="keyword">for</span> oCls <span class="keyword">in</span> g_lSingletonCls:</span><br><span class="line">		oCls.ClearInstance()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span><span class="params">(type)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kwarg)</span>:</span></span><br><span class="line">		<span class="keyword">print</span> <span class="string">"Singleton.__new__"</span></span><br><span class="line">		<span class="keyword">return</span> type.__new__(cls, *args, **kwarg)</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(cls, name, bases, dct)</span>:</span></span><br><span class="line">		<span class="keyword">print</span> <span class="string">"Singleton.__init__"</span></span><br><span class="line">		super(Singleton, cls).__init__(name, bases, dct)</span><br><span class="line">		cls.instance = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(cls, *args, **kwargs)</span>:</span></span><br><span class="line">		<span class="keyword">print</span> <span class="string">"Singleton.__call__"</span></span><br><span class="line">		<span class="keyword">if</span> cls.instance <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">			cls.instance = super(Singleton, cls).__call__(*args, **kwargs)</span><br><span class="line">			<span class="keyword">global</span> g_lSingletonCls</span><br><span class="line">			g_lSingletonCls.append(cls)</span><br><span class="line">			<span class="keyword">return</span> cls.instance</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">ClearInstance</span><span class="params">(cls)</span>:</span></span><br><span class="line">		<span class="keyword">print</span> <span class="string">"Singleton.ClearInstance"</span></span><br><span class="line">		cls.instance = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">HasInstance</span><span class="params">(cls)</span>:</span></span><br><span class="line">		<span class="keyword">return</span> cls.instance != <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CCase</span><span class="params">(object)</span>:</span></span><br><span class="line">	__metaclass__ = Singleton</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="keyword">print</span> <span class="string">"CCase.__int__"</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kwargs)</span>:</span></span><br><span class="line">		<span class="keyword">print</span> <span class="string">"CCase.__new__"</span></span><br><span class="line">		<span class="keyword">return</span> object.__new__(cls)</span><br></pre></td></tr></table></figure></p>
+<p>test_singleton.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> singleton</span><br><span class="line"></span><br><span class="line">oCase = singleton.CCase()</span><br><span class="line"><span class="keyword">print</span> <span class="string">"before\n"</span>, singleton.CCase.HasInstance()</span><br><span class="line"></span><br><span class="line">singleton.CCase.ClearInstance()</span><br><span class="line"><span class="keyword">print</span> <span class="string">"after\n"</span>, singleton.CCase.HasInstance()</span><br></pre></td></tr></table></figure></p>
+<h3 id="结果："><a href="#结果：" class="headerlink" title="结果："></a>结果：</h3><p><img src="/img/Python/metaclass3.png" alt="metaclass3"></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://wiki.jikexueyuan.com/project/explore-python/Class/metaclass.html" target="_blank" rel="noopener">https://wiki.jikexueyuan.com/project/explore-python/Class/metaclass.html</a><br><a href="https://zhuanlan.zhihu.com/p/98440398" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/98440398</a></p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>想要知道更多底层的细节，建议阅读《Python源码剖析》第十二章，那里有你想要的答案。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/12/【Python源码剖析】编译Python/" rel="prev" title="【Python源码剖析】编译Python">
+      <i class="fa fa-chevron-left"></i> 【Python源码剖析】编译Python
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/18/我又爬了网抑云/" rel="next" title="我又爬了网抑云">
+      我又爬了网抑云 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题导读"><span class="nav-number">2.</span> <span class="nav-text">问题导读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-、-init-、-call"><span class="nav-number">3.</span> <span class="nav-text">__new__、__init__、__call__</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元类"><span class="nav-number">4.</span> <span class="nav-text">元类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用元类来创建单例"><span class="nav-number">5.</span> <span class="nav-text">使用元类来创建单例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单例的实现代码"><span class="nav-number">5.1.</span> <span class="nav-text">单例的实现代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果："><span class="nav-number">5.2.</span> <span class="nav-text">结果：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">6.</span> <span class="nav-text">参考链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-number">7.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Gochen Ryan</p>
+  <div class="site-description" itemprop="description">普通程序员</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/GochenRyan" title="GitHub → https://github.com/GochenRyan" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:rangaocheng@outlook.com" title="E-Mail → mailto:rangaocheng@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/ran-gao-cheng" title="ZhiHu → https://www.zhihu.com/people/ran-gao-cheng" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>ZhiHu</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gochen Ryan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"D57h5eGDWXy4mGtftzuCPcmL-gzGzoHsz","app_key":"8V26xOJtrX3uoJbXKLT7rYRD","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'D57h5eGDWXy4mGtftzuCPcmL-gzGzoHsz',
+      appKey     : '8V26xOJtrX3uoJbXKLT7rYRD',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":100,"height":250},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>
