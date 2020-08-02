@@ -20,22 +20,22 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="夹角的和$\angle{APB}$+$\angle{BPC}$+$\angle{APC}$ = $2\pi$ 方法较慢，且涉及到求反三角函数，直接淘汰。 面积法已知道三角形的三点坐标，由海伦公式可以直接得到面积。  比较$S\triangle{APB} + S\triangle{BPC} + S\triangle{CPA}$ 和 $S\triangle{ABC}$是否相等即可，但是由于面积公式涉">
+  <meta name="description" content="前言总结了判断一个点在三角形内的一些方法，欢迎补充😁">
 <meta name="keywords" content="图形学">
 <meta property="og:type" content="article">
 <meta property="og:title" content="判断一个点在三角形内部">
 <meta property="og:url" content="http://yoursite.com/2020/08/02/判断一个点在三角形内部/index.html">
 <meta property="og:site_name" content="GochenRyan的博客">
-<meta property="og:description" content="夹角的和$\angle{APB}$+$\angle{BPC}$+$\angle{APC}$ = $2\pi$ 方法较慢，且涉及到求反三角函数，直接淘汰。 面积法已知道三角形的三点坐标，由海伦公式可以直接得到面积。  比较$S\triangle{APB} + S\triangle{BPC} + S\triangle{CPA}$ 和 $S\triangle{ABC}$是否相等即可，但是由于面积公式涉">
+<meta property="og:description" content="前言总结了判断一个点在三角形内的一些方法，欢迎补充😁">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/img/graphic/1.jpeg">
-<meta property="og:image" content="http://yoursite.com/img/graphic/2.jpeg">
-<meta property="og:image" content="http://yoursite.com/img/graphic/3.png">
 <meta property="og:image" content="http://yoursite.com/img/graphic/4.png">
-<meta property="og:updated_time" content="2020-08-02T16:10:08.300Z">
+<meta property="og:image" content="http://yoursite.com/img/graphic/3.png">
+<meta property="og:image" content="http://yoursite.com/img/graphic/2.jpeg">
+<meta property="og:updated_time" content="2020-08-02T16:17:35.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="判断一个点在三角形内部">
-<meta name="twitter:description" content="夹角的和$\angle{APB}$+$\angle{BPC}$+$\angle{APC}$ = $2\pi$ 方法较慢，且涉及到求反三角函数，直接淘汰。 面积法已知道三角形的三点坐标，由海伦公式可以直接得到面积。  比较$S\triangle{APB} + S\triangle{BPC} + S\triangle{CPA}$ 和 $S\triangle{ABC}$是否相等即可，但是由于面积公式涉">
+<meta name="twitter:description" content="前言总结了判断一个点在三角形内的一些方法，欢迎补充😁">
 <meta name="twitter:image" content="http://yoursite.com/img/graphic/1.jpeg">
 
 <link rel="canonical" href="http://yoursite.com/2020/08/02/判断一个点在三角形内部/">
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-03 00:10:08" itemprop="dateModified" datetime="2020-08-03T00:10:08+08:00">2020-08-03</time>
+                <time title="修改时间：2020-08-03 00:17:35" itemprop="dateModified" datetime="2020-08-03T00:17:35+08:00">2020-08-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,11 +246,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img src="/img/graphic/1.jpeg" alt="1.jpeg"></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>总结了判断一个点在三角形内的一些方法，欢迎补充😁</p>
+<a id="more"></a>
+<p><img src="/img/graphic/1.jpeg" alt="1.jpeg"></p>
 <h2 id="夹角的和"><a href="#夹角的和" class="headerlink" title="夹角的和"></a>夹角的和</h2><p>$\angle{APB}$+$\angle{BPC}$+$\angle{APC}$ = $2\pi$</p>
 <p>方法较慢，且涉及到求反三角函数，直接淘汰。</p>
 <h2 id="面积法"><a href="#面积法" class="headerlink" title="面积法"></a>面积法</h2><p>已知道三角形的三点坐标，由海伦公式可以直接得到面积。</p>
-<p><img src="/img/graphic/2.jpeg" alt="2.jpeg"></p>
+<p><img src="/img/graphic/4.png" alt="4.png"></p>
 <p>比较$S\triangle{APB} + S\triangle{BPC} + S\triangle{CPA}$ 和 $S\triangle{ABC}$是否相等即可，但是由于面积公式涉及开平方根，会产生浮点数的精度问题。当然面积也可以根据叉积大小来求。</p>
 <h2 id="同侧法"><a href="#同侧法" class="headerlink" title="同侧法"></a>同侧法</h2><p>点 P 在$\triangle{ABC}$内部，则同时满足：</p>
 <ul>
@@ -262,7 +264,7 @@
 <p>$\overrightarrow{AC}$ X $\overrightarrow{AB}$、$\overrightarrow{BA}$ X $\overrightarrow{BC}$、$\overrightarrow{AB}$ X $\overrightarrow{AC}$方向相同，只需判断$\overrightarrow{AP}$ X $\overrightarrow{AB}$、$\overrightarrow{BP}$ X $\overrightarrow{BC}$、$\overrightarrow{AP}$ X $\overrightarrow{AC}$、$\overrightarrow{AB}$ X $\overrightarrow{AC}$方向</p>
 <h3 id="再优化"><a href="#再优化" class="headerlink" title="再优化"></a>再优化</h3><p><img src="/img/graphic/3.png" alt="3.png"></p>
 <p>只需判断$\overrightarrow{AP}$ X $\overrightarrow{AB}$、$\overrightarrow{BP}$ X $\overrightarrow{BC}$、$\overrightarrow{AP}$ X $\overrightarrow{AC}$方向</p>
-<h2 id="重心法"><a href="#重心法" class="headerlink" title="重心法"></a>重心法</h2><p><img src="/img/graphic/4.png" alt="4.png"></p>
+<h2 id="重心法"><a href="#重心法" class="headerlink" title="重心法"></a>重心法</h2><p><img src="/img/graphic/2.jpeg" alt="2.jpeg"></p>
 <p>令$\overrightarrow{\nu_0}$=$\overrightarrow{AC}$，$\overrightarrow{\nu_1}$=$\overrightarrow{AC}$，$\overrightarrow{\nu_2}$=$\overrightarrow{AP}$，将$\overrightarrow{\nu_0}$、$\overrightarrow{\nu_1}$作为一组基底，令$\overrightarrow{\nu_2}$=u$\overrightarrow{\nu_0}$ + v$\overrightarrow{\nu_1}$。</p>
 <p>点P在$\triangle{ABC}$内部（边上也算），必须要满足：</p>
 <ul>
@@ -360,7 +362,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#夹角的和"><span class="nav-number">1.</span> <span class="nav-text">夹角的和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面积法"><span class="nav-number">2.</span> <span class="nav-text">面积法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同侧法"><span class="nav-number">3.</span> <span class="nav-text">同侧法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">3.1.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再优化"><span class="nav-number">3.2.</span> <span class="nav-text">再优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重心法"><span class="nav-number">4.</span> <span class="nav-text">重心法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#夹角的和"><span class="nav-number">2.</span> <span class="nav-text">夹角的和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面积法"><span class="nav-number">3.</span> <span class="nav-text">面积法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同侧法"><span class="nav-number">4.</span> <span class="nav-text">同侧法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">4.1.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再优化"><span class="nav-number">4.2.</span> <span class="nav-text">再优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重心法"><span class="nav-number">5.</span> <span class="nav-text">重心法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -558,6 +560,8 @@
 
 
 
+
+  
 
   
 
