@@ -20,22 +20,26 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言总结了判断一个点在三角形内的一些方法，欢迎补充😁">
+  <meta name="description" content="前言后半部分的本来是LaTex公式，Hexo渲染有问题，尝试各种方法无果，暂时换成截图。">
 <meta name="keywords" content="图形学">
 <meta property="og:type" content="article">
 <meta property="og:title" content="判断一个点在三角形内部">
 <meta property="og:url" content="http://yoursite.com/2020/08/02/判断一个点在三角形内部/index.html">
 <meta property="og:site_name" content="GochenRyan的博客">
-<meta property="og:description" content="前言总结了判断一个点在三角形内的一些方法，欢迎补充😁">
+<meta property="og:description" content="前言后半部分的本来是LaTex公式，Hexo渲染有问题，尝试各种方法无果，暂时换成截图。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/img/graphic/1.jpeg">
 <meta property="og:image" content="http://yoursite.com/img/graphic/4.png">
 <meta property="og:image" content="http://yoursite.com/img/graphic/3.png">
 <meta property="og:image" content="http://yoursite.com/img/graphic/2.jpeg">
-<meta property="og:updated_time" content="2020-08-02T17:08:40.950Z">
+<meta property="og:image" content="http://yoursite.com/img/graphic/5.png">
+<meta property="og:image" content="http://yoursite.com/img/graphic/6.png">
+<meta property="og:image" content="http://yoursite.com/img/graphic/7.png">
+<meta property="og:image" content="http://yoursite.com/img/graphic/8.png">
+<meta property="og:updated_time" content="2020-08-02T17:39:20.215Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="判断一个点在三角形内部">
-<meta name="twitter:description" content="前言总结了判断一个点在三角形内的一些方法，欢迎补充😁">
+<meta name="twitter:description" content="前言后半部分的本来是LaTex公式，Hexo渲染有问题，尝试各种方法无果，暂时换成截图。">
 <meta name="twitter:image" content="http://yoursite.com/img/graphic/1.jpeg">
 
 <link rel="canonical" href="http://yoursite.com/2020/08/02/判断一个点在三角形内部/">
@@ -202,7 +206,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-03 01:08:40" itemprop="dateModified" datetime="2020-08-03T01:08:40+08:00">2020-08-03</time>
+                <time title="修改时间：2020-08-03 01:39:20" itemprop="dateModified" datetime="2020-08-03T01:39:20+08:00">2020-08-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,7 +250,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>总结了判断一个点在三角形内的一些方法，欢迎补充😁</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>后半部分的本来是LaTex公式，Hexo渲染有问题，尝试各种方法无果，暂时换成截图。</p>
 <a id="more"></a>
 <p><img src="/img/graphic/1.jpeg" alt="1.jpeg"></p>
 <h2 id="夹角的和"><a href="#夹角的和" class="headerlink" title="夹角的和"></a>夹角的和</h2><p>$\angle{APB}$+$\angle{BPC}$+$\angle{APC}$ = $2\pi$</p>
@@ -272,15 +276,13 @@
 <li>u + v ≤ 1（反推法，取 BC 上一点 p’= $\overrightarrow{\nu_0}$+λ($\overrightarrow{\nu_1}$-$\overrightarrow{\nu_0}$)，那么 u=(1-λ)、v=λ，u+v=1）</li>
 </ul>
 <p>解出u、v，有</p>
-<p>$u = \frac{\overrightarrow\nu_1\overrightarrow\nu_1 <em> \overrightarrow\nu_0\overrightarrow\nu_2 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_1\overrightarrow\nu_2}{\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_1 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_1}$</p>
-<p>$v = \frac{\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_2- \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_2}{\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_1 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_1}$</p>
+<p><img src="/img/graphic/5.png" alt="5.png"></p>
 <p>由柯西不等式的向量形式可以得到：</p>
-<p> $\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_1$ ≥$\overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_1$（当且仅当是零向量或存在实数k，使$\overrightarrow{\nu_0}$ = $k\overrightarrow{\nu_1}$时，等号成立）</p>
+<p><img src="/img/graphic/6.png" alt="6.png"></p>
 <p>所以分母不会为负，<strong>只需要判断分子的正负</strong>：</p>
-<p>$\overrightarrow\nu_1\overrightarrow\nu_1 <em> \overrightarrow\nu_0\overrightarrow\nu_2 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_1\overrightarrow\nu_2 &gt;= 0$</p>
-<p>$\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_2- \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_2&gt;=0$</p>
+<p><img src="/img/graphic/7.png" alt="7.png"></p>
 <p>又需要满足u + v &lt; 1，可以<strong>两边同乘以分母，避免了浮点数的除法运算</strong>：</p>
-<p>$(\overrightarrow\nu_1\overrightarrow\nu_1 <em> \overrightarrow\nu_0\overrightarrow\nu_2 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_1\overrightarrow\nu_2) + (\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_2- \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_2)-(\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_1 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_1) &lt;= 0$</p>
+<p><img src="/img/graphic/8.png" alt="8.png"></p>
 
     </div>
 
