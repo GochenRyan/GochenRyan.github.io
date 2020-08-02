@@ -20,19 +20,25 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="普通程序员">
-<meta name="keywords" content="计算机图形学,OpenGL,C++,C#,Unity3d,3DsMax,游戏引擎,游戏制作,编程,代码,开源">
-<meta property="og:type" content="website">
-<meta property="og:title" content="GochenRyan的博客">
-<meta property="og:url" content="http://yoursite.com/tags/cocos2dx/index.html">
+  <meta name="description" content="夹角的和$\angle{APB}$+$\angle{BPC}$+$\angle{APC}$ = $2\pi$ 方法较慢，且涉及到求反三角函数，直接淘汰。 面积法已知道三角形的三点坐标，由海伦公式可以直接得到面积。  比较$S\triangle{APB} + S\triangle{BPC} + S\triangle{CPA}$ 和 $S\triangle{ABC}$是否相等即可，但是由于面积公式涉">
+<meta name="keywords" content="图形学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="判断一个点在三角形内部">
+<meta property="og:url" content="http://yoursite.com/2020/08/02/判断一个点在三角形内部/index.html">
 <meta property="og:site_name" content="GochenRyan的博客">
-<meta property="og:description" content="普通程序员">
+<meta property="og:description" content="夹角的和$\angle{APB}$+$\angle{BPC}$+$\angle{APC}$ = $2\pi$ 方法较慢，且涉及到求反三角函数，直接淘汰。 面积法已知道三角形的三点坐标，由海伦公式可以直接得到面积。  比较$S\triangle{APB} + S\triangle{BPC} + S\triangle{CPA}$ 和 $S\triangle{ABC}$是否相等即可，但是由于面积公式涉">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/img/graphic/1.jpeg">
+<meta property="og:image" content="http://yoursite.com/img/graphic/2.jpeg">
+<meta property="og:image" content="http://yoursite.com/img/graphic/3.png">
+<meta property="og:image" content="http://yoursite.com/img/graphic/4.png">
+<meta property="og:updated_time" content="2020-08-02T16:10:08.300Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GochenRyan的博客">
-<meta name="twitter:description" content="普通程序员">
+<meta name="twitter:title" content="判断一个点在三角形内部">
+<meta name="twitter:description" content="夹角的和$\angle{APB}$+$\angle{BPC}$+$\angle{APC}$ = $2\pi$ 方法较慢，且涉及到求反三角函数，直接淘汰。 面积法已知道三角形的三点坐标，由海伦公式可以直接得到面积。  比较$S\triangle{APB} + S\triangle{BPC} + S\triangle{CPA}$ 和 $S\triangle{ABC}$是否相等即可，但是由于面积公式涉">
+<meta name="twitter:image" content="http://yoursite.com/img/graphic/1.jpeg">
 
-<link rel="canonical" href="http://yoursite.com/tags/cocos2dx/">
+<link rel="canonical" href="http://yoursite.com/2020/08/02/判断一个点在三角形内部/">
 
 
 <script id="page-configurations">
@@ -40,12 +46,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: cocos2dx | GochenRyan的博客</title>
+  <title>判断一个点在三角形内部 | GochenRyan的博客</title>
   
 
 
@@ -159,57 +165,155 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/02/判断一个点在三角形内部/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gochen Ryan">
+      <meta itemprop="description" content="普通程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GochenRyan的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          判断一个点在三角形内部
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-02 23:59:55" itemprop="dateCreated datePublished" datetime="2020-08-02T23:59:55+08:00">2020-08-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-03 00:10:08" itemprop="dateModified" datetime="2020-08-03T00:10:08+08:00">2020-08-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/图形学/" itemprop="url" rel="index"><span itemprop="name">图形学</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/08/02/判断一个点在三角形内部/" class="post-meta-item leancloud_visitors" data-flag-title="判断一个点在三角形内部" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">cocos2dx
-          <small>标签</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/02/判断一个点在三角形内部/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/02/判断一个点在三角形内部/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <p><img src="/img/graphic/1.jpeg" alt="1.jpeg"></p>
+<h2 id="夹角的和"><a href="#夹角的和" class="headerlink" title="夹角的和"></a>夹角的和</h2><p>$\angle{APB}$+$\angle{BPC}$+$\angle{APC}$ = $2\pi$</p>
+<p>方法较慢，且涉及到求反三角函数，直接淘汰。</p>
+<h2 id="面积法"><a href="#面积法" class="headerlink" title="面积法"></a>面积法</h2><p>已知道三角形的三点坐标，由海伦公式可以直接得到面积。</p>
+<p><img src="/img/graphic/2.jpeg" alt="2.jpeg"></p>
+<p>比较$S\triangle{APB} + S\triangle{BPC} + S\triangle{CPA}$ 和 $S\triangle{ABC}$是否相等即可，但是由于面积公式涉及开平方根，会产生浮点数的精度问题。当然面积也可以根据叉积大小来求。</p>
+<h2 id="同侧法"><a href="#同侧法" class="headerlink" title="同侧法"></a>同侧法</h2><p>点 P 在$\triangle{ABC}$内部，则同时满足：</p>
+<ul>
+<li>点 P 和 C 在直线 AB 的同侧，$\overrightarrow{AP}$ X $\overrightarrow{AB}$与$\overrightarrow{AC}$ X $\overrightarrow{AB}$方向相同</li>
+<li>点 P 和 A 在直线 BC 的同侧，$\overrightarrow{BP}$ X $\overrightarrow{BC}$与$\overrightarrow{BA}$ X $\overrightarrow{BC}$方向相同</li>
+<li>点 P 和 B 在直线 AC 的同侧，$\overrightarrow{AP}$ X $\overrightarrow{AC}$与$\overrightarrow{AB}$ X $\overrightarrow{AC}$方向相同</li>
+</ul>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>三角形中，任意两条边的叉积大小为三角形的面积的两倍，方向由右手螺旋定则判断。</p>
+<p>$\overrightarrow{AC}$ X $\overrightarrow{AB}$、$\overrightarrow{BA}$ X $\overrightarrow{BC}$、$\overrightarrow{AB}$ X $\overrightarrow{AC}$方向相同，只需判断$\overrightarrow{AP}$ X $\overrightarrow{AB}$、$\overrightarrow{BP}$ X $\overrightarrow{BC}$、$\overrightarrow{AP}$ X $\overrightarrow{AC}$、$\overrightarrow{AB}$ X $\overrightarrow{AC}$方向</p>
+<h3 id="再优化"><a href="#再优化" class="headerlink" title="再优化"></a>再优化</h3><p><img src="/img/graphic/3.png" alt="3.png"></p>
+<p>只需判断$\overrightarrow{AP}$ X $\overrightarrow{AB}$、$\overrightarrow{BP}$ X $\overrightarrow{BC}$、$\overrightarrow{AP}$ X $\overrightarrow{AC}$方向</p>
+<h2 id="重心法"><a href="#重心法" class="headerlink" title="重心法"></a>重心法</h2><p><img src="/img/graphic/4.png" alt="4.png"></p>
+<p>令$\overrightarrow{\nu_0}$=$\overrightarrow{AC}$，$\overrightarrow{\nu_1}$=$\overrightarrow{AC}$，$\overrightarrow{\nu_2}$=$\overrightarrow{AP}$，将$\overrightarrow{\nu_0}$、$\overrightarrow{\nu_1}$作为一组基底，令$\overrightarrow{\nu_2}$=u$\overrightarrow{\nu_0}$ + v$\overrightarrow{\nu_1}$。</p>
+<p>点P在$\triangle{ABC}$内部（边上也算），必须要满足：</p>
+<ul>
+<li>u ≥ 0且v ≥ 0</li>
+<li>u + v ≤ 1（反推法，取 BC 上一点 p’= $\overrightarrow{\nu_0}$+λ($\overrightarrow{\nu_1}$-$\overrightarrow{\nu_0}$)，那么 u=(1-λ)、v=λ，u+v=1）</li>
+</ul>
+<p>解出u、v，有</p>
+<p>$u = \frac{\overrightarrow\nu_1\overrightarrow\nu_1 <em> \overrightarrow\nu_0\overrightarrow\nu_2 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_1\overrightarrow\nu_2}{\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_1 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_1}$</p>
+<p>$v = \frac{\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_2- \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_2}{\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_1 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_1}$</p>
+<p>由柯西不等式的向量形式可以得到：</p>
+<p> $\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_1$ ≥$\overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_1$（当且仅当是零向量或存在实数k，使$\overrightarrow{\nu_0}$ = $k\overrightarrow{\nu_1}$时，等号成立）</p>
+<p>所以分母不会为负，<strong>只需要判断分子的正负</strong>：</p>
+<p>$\overrightarrow\nu_1\overrightarrow\nu_1 <em> \overrightarrow\nu_0\overrightarrow\nu_2 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_1\overrightarrow\nu_2 &gt;= 0$</p>
+<p>$\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_2- \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_2&gt;=0$</p>
+<p>又需要满足u + v &lt; 1，可以<strong>两边同乘以分母，避免了浮点数的除法运算</strong>：</p>
+<p>$(\overrightarrow\nu_1\overrightarrow\nu_1 <em> \overrightarrow\nu_0\overrightarrow\nu_2 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_1\overrightarrow\nu_2) + (\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_2- \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_2)-(\overrightarrow\nu_0\overrightarrow\nu_0 <em> \overrightarrow\nu_1\overrightarrow\nu_1 - \overrightarrow\nu_0\overrightarrow\nu_1 </em> \overrightarrow\nu_0\overrightarrow\nu_1) &lt;= 0$</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-06T23:30:45+08:00"
-              content="2020-07-06">
-          07-06
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/图形学/" rel="tag"># 图形学</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/06/【游戏客户端】事件分发（1）/" itemprop="url">
-            <span itemprop="name">【游戏客户端】事件分发（1）</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/18/我又爬了网抑云/" rel="prev" title="我又爬了网抑云">
+      <i class="fa fa-chevron-left"></i> 我又爬了网抑云
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -256,6 +360,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#夹角的和"><span class="nav-number">1.</span> <span class="nav-text">夹角的和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面积法"><span class="nav-number">2.</span> <span class="nav-text">面积法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同侧法"><span class="nav-number">3.</span> <span class="nav-text">同侧法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">3.1.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再优化"><span class="nav-number">3.2.</span> <span class="nav-text">再优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重心法"><span class="nav-number">4.</span> <span class="nav-text">重心法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
