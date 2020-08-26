@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="写在前面最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
+  <meta name="description" content="最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
 <meta name="keywords" content="游戏客户端,性能优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【游戏客户端】合批">
 <meta property="og:url" content="http://yoursite.com/2020/05/26/【游戏客户端】合批/index.html">
 <meta property="og:site_name" content="GochenRyan的博客">
-<meta property="og:description" content="写在前面最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
+<meta property="og:description" content="最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/img/Batching/Draw%20Call1.png">
 <meta property="og:image" content="http://yoursite.com/img/Batching/Draw%20Call2.png">
 <meta property="og:image" content="http://yoursite.com/img/Batching/Tile_set.png">
-<meta property="og:updated_time" content="2020-07-07T04:27:00.638Z">
+<meta property="og:updated_time" content="2020-08-26T14:51:52.312Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【游戏客户端】合批">
-<meta name="twitter:description" content="写在前面最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
+<meta name="twitter:description" content="最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲合批。合批对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊Draw Call…">
 <meta name="twitter:image" content="http://yoursite.com/img/Batching/Draw%20Call1.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/05/26/【游戏客户端】合批/">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-07 12:27:00" itemprop="dateModified" datetime="2020-07-07T12:27:00+08:00">2020-07-07</time>
+                <time title="修改时间：2020-08-26 22:51:52" itemprop="dateModified" datetime="2020-08-26T22:51:52+08:00">2020-08-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,7 +245,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲<strong>合批</strong>。<br><strong>合批</strong>对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊<strong>Draw Call</strong>…</p>
+        <p>最近心力略有憔悴，感情未进，家事难断。罢了，如是知，如是见，如是信解。写点文字放松一下🙃，这篇文章来讲讲<strong>合批</strong>。<br><strong>合批</strong>对于游戏客户端程序已经是老生常谈了，这里简要整理一下合批的一些知识。首先我们来聊一聊<strong>Draw Call</strong>…</p>
 <a id="more"></a>
 <h2 id="Draw-Call"><a href="#Draw-Call" class="headerlink" title="Draw Call"></a>Draw Call</h2><p>Draw Call是什么？Draw Call实际上就是一个命令，CPU通过调用这个命令来通知GPU进行渲染。对于OpenGL来说，Draw Call就是glDrawArrays、glDrawElements等函数的调用。那么，DrawCall是如何影响性能的呢？作为拷贝忍者卡卡西，这里引用<a href="https://zhuanlan.zhihu.com/p/68530142" target="_blank" rel="noopener">一滴血的记忆的专栏文章</a>  </p>
 <blockquote>
@@ -304,8 +304,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/05/18/兴趣的代价/" rel="prev" title="兴趣的代价">
-      <i class="fa fa-chevron-left"></i> 兴趣的代价
+    <a href="/2020/05/11/网络宝库/" rel="prev" title="网络宝库">
+      <i class="fa fa-chevron-left"></i> 网络宝库
     </a></div>
       <div class="post-nav-item">
     <a href="/2020/07/06/【游戏客户端】事件分发（1）/" rel="next" title="【游戏客户端】事件分发（1）">
@@ -370,7 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Draw-Call"><span class="nav-number">2.</span> <span class="nav-text">Draw Call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cocos2dx中的合批"><span class="nav-number">3.</span> <span class="nav-text">cocos2dx中的合批</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Auto-Batching"><span class="nav-number">3.1.</span> <span class="nav-text">Auto Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpriteBatchNode"><span class="nav-number">3.2.</span> <span class="nav-text">SpriteBatchNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并与剔除"><span class="nav-number">3.3.</span> <span class="nav-text">合并与剔除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity中的合批"><span class="nav-number">4.</span> <span class="nav-text">Unity中的合批</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-Batching"><span class="nav-number">4.1.</span> <span class="nav-text">Static Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Batching"><span class="nav-number">4.2.</span> <span class="nav-text">Dynamic Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU-Instancing"><span class="nav-number">4.3.</span> <span class="nav-text">GPU Instancing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合图"><span class="nav-number">5.</span> <span class="nav-text">合图</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Draw-Call"><span class="nav-number">1.</span> <span class="nav-text">Draw Call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cocos2dx中的合批"><span class="nav-number">2.</span> <span class="nav-text">cocos2dx中的合批</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Auto-Batching"><span class="nav-number">2.1.</span> <span class="nav-text">Auto Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpriteBatchNode"><span class="nav-number">2.2.</span> <span class="nav-text">SpriteBatchNode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并与剔除"><span class="nav-number">2.3.</span> <span class="nav-text">合并与剔除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity中的合批"><span class="nav-number">3.</span> <span class="nav-text">Unity中的合批</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-Batching"><span class="nav-number">3.1.</span> <span class="nav-text">Static Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Batching"><span class="nav-number">3.2.</span> <span class="nav-text">Dynamic Batching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU-Instancing"><span class="nav-number">3.3.</span> <span class="nav-text">GPU Instancing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合图"><span class="nav-number">4.</span> <span class="nav-text">合图</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -384,7 +384,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -397,7 +397,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

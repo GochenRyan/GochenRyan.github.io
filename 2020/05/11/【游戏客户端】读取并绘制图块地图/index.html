@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言这篇文章是《C++游戏编程：创建3D游戏》第二章的练习题3的题解。看了看Gihub的提交记录，已经是4月13号的事了。作为一名有羞耻心的懒癌症患者，我会迟到，但我永远不会缺席……">
+  <meta name="description" content="这篇文章是《C++游戏编程：创建3D游戏》第二章的练习题3的题解。看了看Gihub的提交记录，已经是4月13号的事了。作为一名有羞耻心的懒癌症患者，我会迟到，但我永远不会缺席……">
 <meta name="keywords" content="游戏客户端,tiled,《C++游戏编程：创建3D游戏》">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【游戏客户端】读取并绘制图块地图">
 <meta property="og:url" content="http://yoursite.com/2020/05/11/【游戏客户端】读取并绘制图块地图/index.html">
 <meta property="og:site_name" content="GochenRyan的博客">
-<meta property="og:description" content="前言这篇文章是《C++游戏编程：创建3D游戏》第二章的练习题3的题解。看了看Gihub的提交记录，已经是4月13号的事了。作为一名有羞耻心的懒癌症患者，我会迟到，但我永远不会缺席……">
+<meta property="og:description" content="这篇文章是《C++游戏编程：创建3D游戏》第二章的练习题3的题解。看了看Gihub的提交记录，已经是4月13号的事了。作为一名有羞耻心的懒癌症患者，我会迟到，但我永远不会缺席……">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/img/GameProgramInCpp/1.png">
 <meta property="og:image" content="http://yoursite.com/img/GameProgramInCpp/2.png">
 <meta property="og:image" content="http://yoursite.com/img/GameProgramInCpp/3.png">
-<meta property="og:updated_time" content="2020-07-07T04:28:06.686Z">
+<meta property="og:updated_time" content="2020-08-26T14:51:54.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【游戏客户端】读取并绘制图块地图">
-<meta name="twitter:description" content="前言这篇文章是《C++游戏编程：创建3D游戏》第二章的练习题3的题解。看了看Gihub的提交记录，已经是4月13号的事了。作为一名有羞耻心的懒癌症患者，我会迟到，但我永远不会缺席……">
+<meta name="twitter:description" content="这篇文章是《C++游戏编程：创建3D游戏》第二章的练习题3的题解。看了看Gihub的提交记录，已经是4月13号的事了。作为一名有羞耻心的懒癌症患者，我会迟到，但我永远不会缺席……">
 <meta name="twitter:image" content="http://yoursite.com/img/GameProgramInCpp/1.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/05/11/【游戏客户端】读取并绘制图块地图/">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-07 12:28:06" itemprop="dateModified" datetime="2020-07-07T12:28:06+08:00">2020-07-07</time>
+                <time title="修改时间：2020-08-26 22:51:54" itemprop="dateModified" datetime="2020-08-26T22:51:54+08:00">2020-08-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,7 +245,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这篇文章是《C++游戏编程：创建3D游戏》第二章的练习题3的题解。看了看Gihub的提交记录，已经是4月13号的事了。作为一名有羞耻心的懒癌症患者，我会迟到，但我永远不会缺席……</p>
+        <p>这篇文章是《C++游戏编程：创建3D游戏》第二章的练习题3的题解。看了看Gihub的提交记录，已经是4月13号的事了。作为一名有羞耻心的懒癌症患者，我会迟到，但我永远不会缺席……</p>
 <a id="more"></a>
 <h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>先看一下题目🤔：<br><img src="/img/GameProgramInCpp/1.png" alt="20200511001300-image.png"><br>感觉和项目中经常使用的导表很像，都是读取编辑器生成的<strong>特定格式</strong>的文档，然后编写解析程序读取并输出，不过导表是生成<strong>py文件</strong>，这里是<strong>绘制纹理</strong>（也就一个<code>SDL_RenderCopyEx</code>就能解决的事）。<br>所以思路应该是这样：<strong>分析csv文件格式</strong>&gt;<strong>读取有效数据</strong>&gt;<strong>根据映射关系绘制纹理</strong></p>
 <h2 id="编程"><a href="#编程" class="headerlink" title="编程"></a>编程</h2><p>对C++不是很熟悉，Google一下：<strong>C++如何读取CSV文件？</strong><br>go on😀</p>
@@ -345,7 +345,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">2.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程"><span class="nav-number">3.</span> <span class="nav-text">编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析csv文件格式"><span class="nav-number">3.1.</span> <span class="nav-text">分析csv文件格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取有效数据"><span class="nav-number">3.2.</span> <span class="nav-text">读取有效数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据映射关系绘制纹理"><span class="nav-number">3.3.</span> <span class="nav-text">根据映射关系绘制纹理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">1.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程"><span class="nav-number">2.</span> <span class="nav-text">编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析csv文件格式"><span class="nav-number">2.1.</span> <span class="nav-text">分析csv文件格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取有效数据"><span class="nav-number">2.2.</span> <span class="nav-text">读取有效数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据映射关系绘制纹理"><span class="nav-number">2.3.</span> <span class="nav-text">根据映射关系绘制纹理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">3.</span> <span class="nav-text">最后</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -359,7 +359,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -372,7 +372,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
