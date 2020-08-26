@@ -5,7 +5,6 @@ tags:
     - Python
 categories: Python源码剖析
 ---
-## 写在前面
 先推一下大阳哥的[这篇文章](https://lmikoto.com/2020/07/12/%E4%BD%BF%E7%94%A8Notion%E5%81%9A%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%90%8E%E5%8F%B0/)。notion！记笔记的神！说说这篇文章吧，刚开始看《Python源码剖析》，这系列（如果不鸽的话）文章算是笔记与扩展吧。与书中所用python2.5不同，我用的是python3.8(害，主要是不想看python2😑)。玩了一天游戏，写完这篇文章也算是有个心里安慰😋。
 
 <!-- more -->
