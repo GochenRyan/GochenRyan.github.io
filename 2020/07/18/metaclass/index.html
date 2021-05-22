@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="最近看《麦田里的守望者》的时候，看到里面一句话，顿了很久才回过神。它是这么说的：记住该记住的，忘记该忘记的。改变能改变的，接收不能接受的。在未阅读这篇文章前，我在朋友圈也发过类似的文字（仅自己可见）。">
+  <meta name="description" content="分析了metaclass的原理，并使用其来实现单例。">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="metaclass">
 <meta property="og:url" content="http://yoursite.com/2020/07/18/metaclass/index.html">
 <meta property="og:site_name" content="GochenRyan的博客">
-<meta property="og:description" content="最近看《麦田里的守望者》的时候，看到里面一句话，顿了很久才回过神。它是这么说的：记住该记住的，忘记该忘记的。改变能改变的，接收不能接受的。在未阅读这篇文章前，我在朋友圈也发过类似的文字（仅自己可见）。">
+<meta property="og:description" content="分析了metaclass的原理，并使用其来实现单例。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/img/Python/metaclass1.png">
 <meta property="og:image" content="http://yoursite.com/img/Python/metaclass2.png">
 <meta property="og:image" content="http://yoursite.com/img/Python/metaclass3.png">
-<meta property="og:updated_time" content="2020-08-26T15:20:55.287Z">
+<meta property="og:updated_time" content="2021-05-22T15:47:41.103Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="metaclass">
-<meta name="twitter:description" content="最近看《麦田里的守望者》的时候，看到里面一句话，顿了很久才回过神。它是这么说的：记住该记住的，忘记该忘记的。改变能改变的，接收不能接受的。在未阅读这篇文章前，我在朋友圈也发过类似的文字（仅自己可见）。">
+<meta name="twitter:description" content="分析了metaclass的原理，并使用其来实现单例。">
 <meta name="twitter:image" content="http://yoursite.com/img/Python/metaclass1.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/07/18/metaclass/">
@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-26 23:20:55" itemprop="dateModified" datetime="2020-08-26T23:20:55+08:00">2020-08-26</time>
+                <time title="修改时间：2021-05-22 23:47:41" itemprop="dateModified" datetime="2021-05-22T23:47:41+08:00">2021-05-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,15 +245,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>最近看《麦田里的守望者》的时候，看到里面一句话，顿了很久才回过神。它是这么说的：记住该记住的，忘记该忘记的。改变能改变的，接收不能接受的。在未阅读这篇文章前，我在朋友圈也发过类似的文字（仅自己可见）。</p>
+        <p>分析了metaclass的原理，并使用其来实现单例。</p>
 <a id="more"></a>
-<ul>
-<li>“记住该记住的”：从什么时候开始，开始习惯在朋友圈记录的呢？大概是心情郁闷、纠结的时候，会写下一些看似有道理的话。不过时隔多日又能看见类似的文字，人生到底是个环😵；</li>
-<li>“忘记该忘记的”：有些事，时间长了，自然便忘记了。只要多睡几次好觉，坏情绪、坏思想、坏回忆在某次醒来，突然就没有了，像可控性失忆一样；</li>
-<li>“改变能改变的”：改变自己已经很难了，改变他人更是不讲道理。不要为难别人，这也是为难自己😑，好好改变自己就行；</li>
-<li>“接收不能接受的”：有些事情，意识到了，却不愿意接受，这是最折磨人的，能持续很久。你把自己沉到其他事情里去，然后发现，woc我把所有事情都搞砸了。人生的智慧在于放下，大师，我悟了。</li>
-</ul>
-<p>又想起一句话：道理我都知道，但是我就是做不到。没事，我带你看看python中的元类，看看它是怎么做到的🤣。</p>
 <h2 id="问题导读"><a href="#问题导读" class="headerlink" title="问题导读"></a>问题导读</h2><ul>
 <li>[ ]  __new__、__init__、__call__有啥联系与区别？</li>
 <li>[ ]  元类是什么？</li>
@@ -395,7 +388,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -408,7 +401,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -446,7 +439,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
